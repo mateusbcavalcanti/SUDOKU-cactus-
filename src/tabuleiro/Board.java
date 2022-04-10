@@ -1,6 +1,16 @@
-package entidades;
+package tabuleiro;
 
 public class Board {
+	
+	private int coluna;
+	private int linha;
+	private int tabuleiro[][];
+	
+	public Board() {
+		this.coluna = coluna;
+		this.linha = linha;
+		this
+	}
 
 	
 	public static void exibeMatriz(int[][] tabuleiro) {

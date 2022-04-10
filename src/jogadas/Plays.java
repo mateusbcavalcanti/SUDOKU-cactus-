@@ -1,4 +1,4 @@
-package entidades;
+package jogadas;
 
 import java.util.Scanner;
 

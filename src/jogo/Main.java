@@ -3,8 +3,8 @@ package jogo;
 import java.util.Locale;
 import java.util.Scanner;
 
-import entidades.Board;
-import entidades.Plays;
+import jogadas.Plays;
+import tabuleiro.Board;
 
 public class Main {
 
