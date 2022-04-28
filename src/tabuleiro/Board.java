@@ -36,10 +36,9 @@ public abstract class Board {
 	
 	public abstract void conflitantes(char[][] tabuleiro, int linha, int coluna,char numJogado);
 		
-	public static void posicoesFixas(char[][]tabuleiro,int[][]posicaoFixa) {
-		
-	//posicaoFixa = tabuleiro.clone();
+	public abstract void botao(int linha, int coluna, char tabuleiro[][]);
 	
-	}
-
+	public abstract boolean posicoesFixas(char[][]tabuleiro,char[][] posicaoFixa, int linha, int coluna);
+	
+	
 }

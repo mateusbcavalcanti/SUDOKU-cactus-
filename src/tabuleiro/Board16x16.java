@@ -1,5 +1,7 @@
 package tabuleiro;
 
+import java.util.ArrayList;
+
 public class Board16x16 extends Board {
 	
 	
@@ -47,5 +49,67 @@ public class Board16x16 extends Board {
 	       				}
 	       			}		
 	       		}     
+	}
+
+	@Override
+	public void botao(int linha, int coluna, char[][] tabuleiro) {
+		char[]elementos = {'1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g'}; 
+ 	   
+    	ArrayList<Character> test = new ArrayList<Character>();
+       	ArrayList<Character> testeColuna = new ArrayList<Character>();
+       	ArrayList<Character> testeQuadrante = new ArrayList<Character>();
+       	ArrayList<Character> testeLinha = new ArrayList<Character>();
+       	
+       	for(int i=0; i<elementos.length; i++) {//adicionando os valores de 1 a 9 ao list
+       		test.add(elementos[i]);
+       	}
+    
+       	
+       	for (int i = 0; i < tabuleiro.length; i++) {//adicionando valores da linha ao list
+   	         testeLinha.add(tabuleiro[linha][i]); 
+   	   				}
+
+       	
+       	for(int j=0; j<tabuleiro.length; j++) {//adicionando valores da coluna ao list
+       		testeColuna.add(tabuleiro[j][coluna]); 
+       	}
+
+       	
+       	int linhaQuadrante = linha - linha %4;
+   		int colunaQuadrante = coluna - coluna %4;
+   		
+   		for(int k= linhaQuadrante; k<linhaQuadrante + 4; k++) { //adicionando os valores do quadrante ao list
+   			for(int l= colunaQuadrante; l<colunaQuadrante + 4; l++) {
+   				testeQuadrante.add(tabuleiro[k][l]);
+   				}
+   			}
+     	
+   		
+   		test.removeAll(testeLinha);
+   		
+   		test.removeAll(testeColuna);
+   		
+    	test.removeAll(testeQuadrante);
+    	
+    	System.out.println("Esses soa os valores disponiveis para a celula:"+ test);
+		
+	}
+
+	@Override
+	public boolean posicoesFixas(char[][] tabuleiro, char[][] posicoes, int linha, int coluna) {
+		posicoes = tabuleiro.clone();
+		
+		if(tabuleiro[linha][coluna] == posicoes[linha][coluna] && tabuleiro[linha][coluna] != '0' ) {
+			return true;
+		}
+		
+		else {
+			return false;
+		}
+		
+		
+	}
+
+	
 	}		
-}
+

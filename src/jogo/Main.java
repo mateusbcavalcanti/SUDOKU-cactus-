@@ -72,7 +72,7 @@ public class Main {
 	board9.conflitantes(tabuleiro9x9, linha, coluna, numJogado);
 	
 	
-	
+	/*
 	
 	Board16x16 board16 = new Board16x16(coluna, linha, tabuleiro16x16);
 	
@@ -95,7 +95,7 @@ public class Main {
 	System.out.println();
 	board16.exibeMatriz(tabuleiro16x16);
 	
-	board16.conflitantes(tabuleiro16x16, linha, coluna, numJogado);
+	board16.conflitantes(tabuleiro16x16, linha, coluna, numJogado);*/
 	sc.close();
 	}
 
