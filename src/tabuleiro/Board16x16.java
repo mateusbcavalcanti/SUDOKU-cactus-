@@ -11,10 +11,10 @@ public class Board16x16 extends Board {
 	}
 
 	@Override
-	public void exibeMatriz(char[][] tabuleiro16x16) { //Imprime o tabuleiro 16x16
-		for (int i = 0; i < tabuleiro16x16.length; i++) {
-	           for (int j = 0; j < tabuleiro16x16.length; j++) {
-	                System.out.print(tabuleiro16x16[i][j] + " ");
+	public void exibeMatriz(char[][] tabuleiro) { //Imprime o tabuleiro 16x16
+		for (int i = 0; i < tabuleiro.length; i++) {
+	           for (int j = 0; j < tabuleiro.length; j++) {
+	                System.out.print(tabuleiro[i][j] + " ");
 	                if (j == 3 || j == 7 || j==11) System.out.print("| ");
 	            }
 	            System.out.println();
@@ -26,15 +26,15 @@ public class Board16x16 extends Board {
 	}
 
 	@Override
-	public void conflitantes(char tabuleiro16x16[][], int linha, int coluna, char numJogado) {
-		for (int i = 0; i < tabuleiro16x16.length; i++) {
-			 if(tabuleiro16x16[linha][i] == numJogado && i!= coluna ) { //verifica a linha e imprime as celulas conflitantes
+	public void conflitantes(char tabuleiro[][], int linha, int coluna, char numJogado) {
+		for (int i = 0; i < tabuleiro.length; i++) {
+			 if(tabuleiro[linha][i] == numJogado && i!= coluna ) { //verifica a linha e imprime as celulas conflitantes
 	   				System.out.println("JA PERTENCE A LINHA");
 	   				}
 				}
 	           
-		for (int j = 0; j < tabuleiro16x16.length; j++) {
-	        	   if(tabuleiro16x16[j][coluna] == numJogado && j != linha) { //verifica a coluna e imprime as celulas conflitantes
+		for (int j = 0; j < tabuleiro.length; j++) {
+	        	   if(tabuleiro[j][coluna] == numJogado && j != linha) { //verifica a coluna e imprime as celulas conflitantes
 		   			System.out.println("JA PERTENCE A COLUNA");
 	        	   	}
 	       		}
@@ -44,7 +44,7 @@ public class Board16x16 extends Board {
 	       		
 	       		for(int i= linhaQuadrante; i<linhaQuadrante + 4; i++) { //verifica o quadrante e imprime as celulas conflitantes
 	       			for(int j= colunaQuadrante; j<colunaQuadrante + 4; j++) {
-	       				if(tabuleiro16x16[i][j] == numJogado && i!= linha && j!= coluna  ) {
+	       				if(tabuleiro[i][j] == numJogado && i!= linha && j!= coluna  ) {
 	       					System.out.println("JA PERTENCE AO QUADRANTE");
 	       				}
 	       			}		
@@ -96,8 +96,8 @@ public class Board16x16 extends Board {
 	}
 
 	@Override
-	public boolean posicoesFixas(char[][] tabuleiro, char[][] posicoes, int linha, int coluna) {
-		posicoes = tabuleiro.clone();
+	public boolean posicoesFixas(char[][] tabuleiro, int linha, int coluna) {
+		char[][] posicoes = tabuleiro.clone();
 		
 		if(tabuleiro[linha][coluna] == posicoes[linha][coluna] && tabuleiro[linha][coluna] != '0' ) {
 			return true;
@@ -108,6 +108,52 @@ public class Board16x16 extends Board {
 		}
 		
 		
+	}
+
+	@Override
+	public boolean jogoCompleto(char[][] tabuleiro) {
+		 ArrayList<Character> principal = new ArrayList<>();
+         ArrayList<Character> coluna = new ArrayList<>();
+         ArrayList<Character> linha = new ArrayList<>();
+
+         if(tabuleiro.length != tabuleiro[0].length) return false;
+
+         for(int i = 0; i < tabuleiro.length; i+=3){
+             for(int j = 0; j < tabuleiro.length; j+=3){
+
+                 for(int i1 = i; i1 < 3+i; i1++){
+                     for(int j1 = j; j1 < 3+j; j1++){
+                         if(principal.contains(tabuleiro[i1][j1]) || principal.contains('0')){
+                             return false;
+                         }
+                         principal.add(tabuleiro[i1][j1]);
+                     }
+                 }
+                 principal.clear();
+             }
+
+         }
+
+         for(int i = 0; i < tabuleiro.length; i++){
+             for(int i1 = 0; i1 < tabuleiro.length; i1++){
+                 if(coluna.contains(tabuleiro[i][i1]) || coluna.contains('0') ){
+                     return false;
+                 }
+                 coluna.add(tabuleiro[i][i1]);
+             }
+
+             for(int j = 0; j < tabuleiro.length; j++){
+
+                 if(linha.contains(tabuleiro[j][i]) || linha.contains('0')){
+                     return false;
+                 }
+                 linha.add(tabuleiro[j][i]);
+             }
+             linha.clear();
+             coluna.clear();
+         }
+
+         return true;
 	}
 
 	

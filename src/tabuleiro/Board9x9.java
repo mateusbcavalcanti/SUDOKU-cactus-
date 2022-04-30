@@ -32,6 +32,7 @@ public class Board9x9 extends Board {
 	   				//System.out.println("Linha:"+ linha + " coluna:" + i + "---- conflitam com: linha:"+linha + "coluna:" + coluna  );
 	   				System.out.println("jA PERTENCE A LINHA" );
 	   				}
+	          
 				}
 			
 		for (int j = 0; j < tabuleiro.length; j++) {
@@ -40,6 +41,7 @@ public class Board9x9 extends Board {
 		   			System.out.println("JA PERTENCE A COLUNA");
 
 	   				}
+	        	
 	        	}
 	         
 	       					 
@@ -52,6 +54,7 @@ public class Board9x9 extends Board {
 	       					//System.out.println("Linha:"+ k + " coluna:" + l + "---- conflitam com: linha:"+linha + "coluna:" + coluna  );
 	       					System.out.println("JA PERTENCE AO QUADRANTE");
 	       				}
+	       			 
 	       			}
 	       		}
 			}
@@ -101,10 +104,10 @@ public class Board9x9 extends Board {
 	}
 
 	@Override
-	public boolean posicoesFixas(char[][] tabuleiro, char[][] posicoes, int linha, int coluna) {
-		posicoes = tabuleiro.clone();
+	public boolean posicoesFixas(char[][] tabuleiro, int linha, int coluna) {
+		char[][] posicoes = tabuleiro.clone();
 		
-		if(tabuleiro[linha][coluna] == posicoes[linha][coluna] && tabuleiro[linha][coluna] != '0' ) {
+		if(tabuleiro[linha][coluna] != posicoes[linha][coluna] || tabuleiro[linha][coluna] == '0' ) {
 			return true;
 		}
 		
@@ -113,6 +116,52 @@ public class Board9x9 extends Board {
 		}
 		
 		
+	}
+
+	@Override
+	public boolean jogoCompleto(char[][] tabuleiro) {
+		 ArrayList<Character> principal = new ArrayList<>();
+         ArrayList<Character> coluna = new ArrayList<>();
+         ArrayList<Character> linha = new ArrayList<>();
+
+         if(tabuleiro.length != tabuleiro[0].length) return false;
+
+         for(int i = 0; i < tabuleiro.length; i+=3){
+             for(int j = 0; j < tabuleiro.length; j+=3){
+
+                 for(int i1 = i; i1 < 3+i; i1++){
+                     for(int j1 = j; j1 < 3+j; j1++){
+                         if(principal.contains(tabuleiro[i1][j1]) || principal.contains('0')){
+                             return false;
+                         }
+                         principal.add(tabuleiro[i1][j1]);
+                     }
+                 }
+                 principal.clear();
+             }
+
+         }
+
+         for(int i = 0; i < tabuleiro.length; i++){
+             for(int i1 = 0; i1 < tabuleiro.length; i1++){
+                 if(coluna.contains(tabuleiro[i][i1]) || coluna.contains('0') ){
+                     return false;
+                 }
+                 coluna.add(tabuleiro[i][i1]);
+             }
+
+             for(int j = 0; j < tabuleiro.length; j++){
+
+                 if(linha.contains(tabuleiro[j][i]) || linha.contains('0')){
+                     return false;
+                 }
+                 linha.add(tabuleiro[j][i]);
+             }
+             linha.clear();
+             coluna.clear();
+         }
+
+         return true;
 	}
 
 

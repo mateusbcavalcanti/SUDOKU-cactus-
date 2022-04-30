@@ -32,13 +32,16 @@ public abstract class Board {
 		return tabuleiro;
 	}
 
+
+
 	public abstract void exibeMatriz(char[][] tabuleiro); 
 	
 	public abstract void conflitantes(char[][] tabuleiro, int linha, int coluna,char numJogado);
 		
 	public abstract void botao(int linha, int coluna, char tabuleiro[][]);
 	
-	public abstract boolean posicoesFixas(char[][]tabuleiro,char[][] posicaoFixa, int linha, int coluna);
+	public abstract boolean posicoesFixas(char[][]tabuleiro, int linha, int coluna);
 	
+	public abstract boolean jogoCompleto(char[][] tabuleiro);
 	
 }
