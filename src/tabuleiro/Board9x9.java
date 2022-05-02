@@ -29,16 +29,16 @@ public class Board9x9 extends Board {
 		
 		for (int i = 0; i < tabuleiro.length; i++) {
 	           if(tabuleiro[linha][i] == numJogado && i!= coluna) { //verifica a linha e imprime as celulas conflitantes
-	   				//System.out.println("Linha:"+ linha + " coluna:" + i + "---- conflitam com: linha:"+linha + "coluna:" + coluna  );
-	   				System.out.println("jA PERTENCE A LINHA" );
+	   				System.out.println("Linha:"+ linha + " coluna:" + i + " ---- conflitam com a celula modificada"  );
+	   				//System.out.println("jA PERTENCE A LINHA" );
 	   				}
 	          
 				}
 			
 		for (int j = 0; j < tabuleiro.length; j++) {
 	        	 if(tabuleiro[j][coluna] == numJogado && j != linha) { //verifica a coluna e imprime as celulas conflitantes
-		   			//System.out.println("Linha:"+ j + " coluna:" + coluna + "---- conflitam com: linha:"+linha + "coluna:" + coluna  );
-		   			System.out.println("JA PERTENCE A COLUNA");
+		   			System.out.println("Linha:"+ j + " coluna:" + coluna + " ---- conflitam com a celula modificada" );
+		   			//System.out.println("JA PERTENCE A COLUNA");
 
 	   				}
 	        	
@@ -51,8 +51,8 @@ public class Board9x9 extends Board {
 	       		for(int k= linhaQuadrante; k<linhaQuadrante + 3; k++) { //verifica o quadrante e imprime as celulas conflitantes
 	       			for(int l= colunaQuadrante; l<colunaQuadrante + 3; l++) {
 	       				if(tabuleiro[k][l] == numJogado && k!= linha && l!= coluna ) {
-	       					//System.out.println("Linha:"+ k + " coluna:" + l + "---- conflitam com: linha:"+linha + "coluna:" + coluna  );
-	       					System.out.println("JA PERTENCE AO QUADRANTE");
+	       					System.out.println("Linha: "+ k + " coluna: " + l + " ---- conflitam com a celula modificada");
+	       					//System.out.println("JA PERTENCE AO QUADRANTE");
 	       				}
 	       			 
 	       			}
@@ -99,15 +99,15 @@ public class Board9x9 extends Board {
    		
     	test.removeAll(testeQuadrante);
     	
-    	System.out.println("Esses soa os valores disponiveis para a celula:"+ test);
+    	System.out.println("\nEsses sao os valores disponiveis para a celula:"+ test);
 		
 	}
 
 	@Override
-	public boolean posicoesFixas(char[][] tabuleiro, int linha, int coluna) {
-		char[][] posicoes = tabuleiro.clone();
+	public boolean posicoesFixas(char[][] tabuleiro, char[][] posicoes, int linha, int coluna) {
 		
-		if(tabuleiro[linha][coluna] != posicoes[linha][coluna] || tabuleiro[linha][coluna] == '0' ) {
+		if(tabuleiro[linha][coluna] != posicoes[linha][coluna] || tabuleiro[linha][coluna] == '0' ) { //Pega o tabuleiro incial e armazena as posicoes para comparar com o tabuleiro
+																								      //gerado pelas modificações do usuario a fim de saber se aquela celula é a fixa ou nao
 			return true;
 		}
 		

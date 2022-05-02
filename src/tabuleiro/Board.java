@@ -40,7 +40,7 @@ public abstract class Board {
 		
 	public abstract void botao(int linha, int coluna, char tabuleiro[][]);
 	
-	public abstract boolean posicoesFixas(char[][]tabuleiro, int linha, int coluna);
+	public abstract boolean posicoesFixas(char[][]tabuleiro, char[][]posicoes, int linha, int coluna);
 	
 	public abstract boolean jogoCompleto(char[][] tabuleiro);
 	
