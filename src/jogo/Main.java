@@ -3,6 +3,8 @@ package jogo;
 import java.util.Locale;
 import java.util.Scanner;
 
+import model.exceptions.ConflitanteException;
+import model.exceptions.InvalidCharException;
 import tabuleiro.Board16x16;
 import tabuleiro.Board9x9;
 
@@ -45,7 +47,7 @@ public class Main {
 	char numJogado = 0;
 	int matrizPosicoesFixas[][] = new int[9][9];
 	char botao;
-	boolean auxiliar;
+	boolean auxiliar = false;
 	
 	
 	System.out.println("Escolha o tipo de tabuleiro que deseja jogar:\ntabuleiro 9x9 <x>   tabuleiro 16x16 <y>");
@@ -68,6 +70,7 @@ public class Main {
 		Board9x9 board = new Board9x9(linha, coluna, tabuleiro9x9);
 		
 		do {
+			try {
             auxiliar = true;
             System.out.println();
             board.exibeMatriz(tabuleiro);
@@ -127,7 +130,14 @@ public class Main {
             if(board.jogoCompleto(tabuleiro)) { 
             	auxiliar = false;
             }
-           
+            
+			}catch(ConflitanteException e) {
+            	System.out.println("Atenção!!--> "+e.getMessage());
+            		}
+			catch(InvalidCharException e) {
+        	System.out.println("Atenção!!--> "+e.getMessage());
+        		}
+			
         } while (auxiliar);
         System.out.println("Voce completou o sudoku, parabens");
 		
@@ -158,6 +168,7 @@ public class Main {
 		char tabuleiro[][] = tabuleiro16x16;
 		
 		do {
+			 try {
             auxiliar = true;
             System.out.println();
             board.exibeMatriz(tabuleiro);
@@ -166,6 +177,7 @@ public class Main {
             System.out.println("Insira a linha e a coluna e em seguida o numero da jogada");            
             
             do {
+            	
                 System.out.print("Linha > ");
                 linha = sc.nextInt();
             
@@ -183,8 +195,12 @@ public class Main {
                 } else {
     				System.out.println("Esta celula nao pode ser modificada, tente novamente");
                 }
-   
+            
+            
+            	
+            
             } while (auxiliar);
+            
             
             auxiliar = true; //alterando para ser usado novamente
             
@@ -218,6 +234,10 @@ public class Main {
             	auxiliar = false;
             }
            
+			 }catch(ConflitanteException e) {
+            	System.out.println("Atenção!!-->"+e.getMessage());
+            		}			 
+			 
         } while (auxiliar);
         System.out.println("Voce completou o sudoku, parabens");
 	}

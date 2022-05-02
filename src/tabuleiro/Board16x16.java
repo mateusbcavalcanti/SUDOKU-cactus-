@@ -2,6 +2,9 @@ package tabuleiro;
 
 import java.util.ArrayList;
 
+import model.exceptions.ConflitanteException;
+import model.exceptions.InvalidCharException;
+
 public class Board16x16 extends Board {
 	
 	
@@ -26,17 +29,17 @@ public class Board16x16 extends Board {
 	}
 
 	@Override
-	public void conflitantes(char tabuleiro[][], int linha, int coluna, char numJogado) {
+	public void conflitantes(char tabuleiro[][], int linha, int coluna, char numJogado)throws ConflitanteException, InvalidCharException{
 		for (int i = 0; i < tabuleiro.length; i++) {
 			 if(tabuleiro[linha][i] == numJogado && i!= coluna ) { //verifica a linha e imprime as celulas conflitantes
-	   			 System.out.println("Linha:"+ linha + " coluna:" + i + " ---- conflitam com a celula modificada"  );	
+	   			 throw new ConflitanteException("Linha:"+ linha + " coluna:" + i + " ---- conflitam com a celula modificada"  );	
 				 //System.out.println("JA PERTENCE A LINHA");
 	   				}
 				}
 	           
 		for (int j = 0; j < tabuleiro.length; j++) {
 	        	   if(tabuleiro[j][coluna] == numJogado && j != linha) { //verifica a coluna e imprime as celulas conflitantes
-	        		   System.out.println("Linha:"+ j + " coluna:" + coluna + " ---- conflitam com a celula modificada" );
+	        		   throw new ConflitanteException("Linha:"+ j + " coluna:" + coluna + " ---- conflitam com a celula modificada" );
 	        		   //System.out.println("JA PERTENCE A COLUNA");
 	        	   	}
 	       		}
@@ -47,7 +50,7 @@ public class Board16x16 extends Board {
 	       		for(int k= linhaQuadrante; k<linhaQuadrante + 4; k++) { //verifica o quadrante e imprime as celulas conflitantes
 	       			for(int l= colunaQuadrante; l<colunaQuadrante + 4; l++) {
 	       				if(tabuleiro[k][l] == numJogado && k!= linha && l!= coluna  ) {
-	       					System.out.println("Linha: "+ k + " coluna: " + l + " ---- conflitam com a celula modificada");
+	       					throw new ConflitanteException("Linha: "+ k + " coluna: " + l + " ---- conflitam com a celula modificada");
 	       					//System.out.println("JA PERTENCE AO QUADRANTE");
 	       				}
 	       			}		
