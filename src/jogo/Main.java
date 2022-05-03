@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import model.exceptions.ConflitanteException;
 import model.exceptions.InvalidCharException;
+import tabuleiro.Board;
 import tabuleiro.Board16x16;
 import tabuleiro.Board9x9;
 
@@ -50,8 +51,12 @@ public class Main {
 	boolean auxiliar = false;
 	
 	
+
 	System.out.println("Escolha o tipo de tabuleiro que deseja jogar:\ntabuleiro 9x9 <x>   tabuleiro 16x16 <y>");
 	botao = sc.next().charAt(0);
+	Object board = null;
+	char[][] tabuleiroTeste;
+	char[][] posicoesTeste;
 	
 	if(botao == 'x') {
 		char[][] posicoes = {
@@ -66,80 +71,11 @@ public class Main {
 			{'0','4','0','0','0','0','0','0','6'}
 			};
 		
+		posicoesTeste = posicoes;
 		char tabuleiro[][] = tabuleiro9x9;
-		Board9x9 board = new Board9x9(linha, coluna, tabuleiro9x9);
+		tabuleiroTeste = tabuleiro;
+		 board = new Board9x9(linha, coluna, tabuleiro);
 		
-		do {
-			try {
-            auxiliar = true;
-            System.out.println();
-            board.exibeMatriz(tabuleiro);
-            
-            
-            System.out.println("Insira a linha e a coluna e em seguida o numero da jogada");            
-            
-            do {
-                System.out.print("Linha > ");
-                linha = sc.nextInt();
-            
-                System.out.print("Coluna > ");
-                coluna = sc.nextInt();
-            
-                System.out.print("Número > ");
-                numJogado = sc.next().charAt(0);
-                
-                if(board.posicoesFixas(tabuleiro, posicoes, linha, coluna))  {
-    				tabuleiro[linha][coluna] = numJogado;
-    				board.conflitantes(tabuleiro, linha, coluna, numJogado);
-    				auxiliar = false;
-    				
-                } else {
-    				System.out.println("Esta celula nao pode ser modificada, tente novamente");
-                }
-   
-            } while (auxiliar);
-            
-            auxiliar = true; //alterando para ser usado novamente
-            
-            System.out.println("\nDeseja saber quais numeros são validos para determinada celula? SIM<s> NAO<n>");
-            botao = sc.next().charAt(0);
-            
-            
-             
-            if(botao == 's') {
-            	do {
-            		System.out.print("Linha > ");
-    				linha = sc.nextInt();
-    				System.out.print("Coluna > ");
-    				coluna = sc.nextInt();
-            		
-    				if(! board.posicoesFixas(tabuleiro, posicoes, linha, coluna)) {
-    					System.out.println("Esta celula nao pode ser modificada, teste outra para que o botao funcione");
-    				}
-    				
-    				else {
-    					board.botao(linha, coluna, tabuleiro);
-    					auxiliar = false;
-    				}
-              }while(auxiliar);
-            }
-            
-            auxiliar = true; //alterando para ser usado novamente
-
-            
-            if(board.jogoCompleto(tabuleiro)) { 
-            	auxiliar = false;
-            }
-            
-			}catch(ConflitanteException e) {
-            	System.out.println("Atenção!!--> "+e.getMessage());
-            		}
-			catch(InvalidCharException e) {
-        	System.out.println("Atenção!!--> "+e.getMessage());
-        		}
-			
-        } while (auxiliar);
-        System.out.println("Voce completou o sudoku, parabens");
 		
 	}
 	
@@ -164,85 +100,86 @@ public class Main {
 				{'1','0','c','9','g','0','5','d','2','4','b','0','8','3','0','0'}
 			};
 		
-		Board16x16 board = new Board16x16(linha, coluna, tabuleiro16x16);
-		char tabuleiro[][] = tabuleiro16x16;
 		
-		do {
-			 try {
-            auxiliar = true;
-            System.out.println();
-            board.exibeMatriz(tabuleiro);
-            
-            
-            System.out.println("Insira a linha e a coluna e em seguida o numero da jogada");            
-            
-            do {
-            	
-                System.out.print("Linha > ");
-                linha = sc.nextInt();
-            
-                System.out.print("Coluna > ");
-                coluna = sc.nextInt();
-            
-                System.out.print("Número > ");
-                numJogado = sc.next().charAt(0);
-                
-                if(board.posicoesFixas(tabuleiro, posicoes, linha, coluna))  {
-    				tabuleiro[linha][coluna] = numJogado;
-    				board.conflitantes(tabuleiro, linha, coluna, numJogado);
-    				auxiliar = false;
-    				
-                } else {
-    				System.out.println("Esta celula nao pode ser modificada, tente novamente");
-                }
-            
-            
-            	
-            
-            } while (auxiliar);
-            
-            
-            auxiliar = true; //alterando para ser usado novamente
-            
-            System.out.println("\nDeseja saber quais numeros são validos para determinada celula? SIM<s> NAO<n>");
-            botao = sc.next().charAt(0);
-            
-            
-             
-            if(botao == 's') {
-            	do {
-            		System.out.print("Linha > ");
-    				linha = sc.nextInt();
-    				System.out.print("Coluna > ");
-    				coluna = sc.nextInt();
-            		
-    				if(! board.posicoesFixas(tabuleiro, posicoes, linha, coluna)) {
-    					System.out.println("Esta celula nao pode ser modificada, teste outra para que o botao funcione");
-    				}
-    				
-    				else {
-    					board.botao(linha, coluna, tabuleiro);
-    					auxiliar = false;
-    				}
-              }while(auxiliar);
-            }
-            
-            auxiliar = true; //alterando para ser usado novamente
-
-            
-            if(board.jogoCompleto(tabuleiro)) { 
-            	auxiliar = false;
-            }
-           
-			 }catch(ConflitanteException e) {
-            	System.out.println("Atenção!!-->"+e.getMessage());
-            		}			 
-			 
-        } while (auxiliar);
-        System.out.println("Voce completou o sudoku, parabens");
+		posicoesTeste = posicoes;
+		char tabuleiro[][] = tabuleiro16x16;
+		tabuleiroTeste = tabuleiro;
+		board = new Board16x16(linha, coluna, tabuleiro);
+		
 	}
 	
 	
+	do {
+		try {
+        auxiliar = true;
+        System.out.println();
+        ((Board) board).exibeMatriz(tabuleiroTeste);
+        
+        
+        System.out.println("Insira a linha e a coluna e em seguida o numero da jogada");            
+        
+        do {
+            System.out.print("Linha > ");
+            linha = sc.nextInt();
+        
+            System.out.print("Coluna > ");
+            coluna = sc.nextInt();
+        
+            System.out.print("Número > ");
+            numJogado = sc.next().charAt(0);
+            
+            if(((Board) board).posicoesFixas(tabuleiroTeste, posicoesTeste, linha, coluna))  {
+				tabuleiroTeste[linha][coluna] = numJogado;
+				((Board) board).conflitantes(tabuleiroTeste, linha, coluna, numJogado);
+				auxiliar = false;
+				
+            } else {
+				System.out.println("Esta celula nao pode ser modificada, tente novamente");
+            }
+
+        } while (auxiliar);
+        
+        auxiliar = true; //reuso
+        
+        System.out.println("\nDeseja saber quais numeros são validos para determinada celula? SIM<s> NAO<n>");
+        botao = sc.next().charAt(0);
+        
+        
+         
+        if(botao == 's') {
+        	do {
+        		System.out.print("Linha > ");
+				linha = sc.nextInt();
+				System.out.print("Coluna > ");
+				coluna = sc.nextInt();
+        		
+				if(! ((Board) board).posicoesFixas(tabuleiroTeste, posicoesTeste, linha, coluna)) {
+					System.out.println("Esta celula nao pode ser modificada, teste outra para que o botao funcione");
+				}
+				
+				else {
+					((Board) board).botao(linha, coluna, tabuleiroTeste);
+					auxiliar = false;
+				}
+          }while(auxiliar);
+        }
+        
+        auxiliar = true; //reuso
+
+        
+        if(((Board) board).jogoCompleto(tabuleiroTeste)) { 
+        	auxiliar = false;
+        }
+        
+		}catch(ConflitanteException e) {
+        	System.out.println("Atenção!!--> "+e.getMessage());
+        		}
+		catch(InvalidCharException e) {
+    	System.out.println("Atenção!!--> "+e.getMessage());
+    		}
+		
+    } while (auxiliar);
+    System.out.println("Voce completou o sudoku, parabens");
 	
   
 
