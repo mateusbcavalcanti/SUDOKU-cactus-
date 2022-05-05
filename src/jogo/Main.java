@@ -8,6 +8,7 @@ import model.exceptions.InvalidCharException;
 import tabuleiro.Board;
 import tabuleiro.Board16x16;
 import tabuleiro.Board9x9;
+import tabuleiro.BoardInterface;
 
 public class Main {
 
@@ -53,10 +54,10 @@ public class Main {
 	
 
 	System.out.println("Escolha o tipo de tabuleiro que deseja jogar:\ntabuleiro 9x9 <x>   tabuleiro 16x16 <y>");
-	botao ='y';
+	botao = sc.next().charAt(0);
 	Object board = null;
 	int[][] tabuleiroTeste = null;
-	int[][] posicoesTeste;
+	int[][] posicoesTeste = null;
 	
 	if(botao == 'x') {
 		int[][] posicoes = {
@@ -80,7 +81,7 @@ public class Main {
 	}
 	
 	
-	else {
+	else if(botao == 'y') {
 		int[][] posicoes = {
 				{1,5,8,0,12,15,0,14,0,2,11,0,6,0,0,7},
 				{6,13,0,0,0,0,0,11,8,0,0,5,14,1,0,11},
@@ -113,7 +114,7 @@ public class Main {
 		try {
         auxiliar = true;
         System.out.println();
-        ((Board) board).exibeMatriz(tabuleiroTeste);
+        ((BoardInterface) board).exibeMatriz(tabuleiroTeste);
         
         
         System.out.println("Insira a linha e a coluna e em seguida o numero da jogada");            
@@ -128,9 +129,9 @@ public class Main {
             System.out.print("Número > ");
             numJogado = sc.nextInt();
             
-            if(((Board) board).posicoesFixas(tabuleiroTeste, posicoesTeste, linha, coluna))  {
+            if(((BoardInterface) board).posicoesFixas(tabuleiroTeste, posicoesTeste, linha, coluna))  {
 				tabuleiroTeste[linha][coluna] = numJogado;
-				((Board) board).conflitantes(tabuleiroTeste, linha, coluna, numJogado);
+				((BoardInterface) board).conflitantes(tabuleiroTeste, linha, coluna, numJogado);
 				auxiliar = false;
 				
             } else {
@@ -153,12 +154,12 @@ public class Main {
 				System.out.print("Coluna > ");
 				coluna = sc.nextInt();
         		
-				if(! ((Board) board).posicoesFixas(tabuleiroTeste, posicoesTeste, linha, coluna)) {
+				if(! ((BoardInterface) board).posicoesFixas(tabuleiroTeste, posicoesTeste, linha, coluna)) {
 					System.out.println("Esta celula nao pode ser modificada, teste outra para que o botao funcione");
 				}
 				
 				else {
-					((Board) board).botao(linha, coluna, tabuleiroTeste);
+					((BoardInterface) board).botao(linha, coluna, tabuleiroTeste);
 					auxiliar = false;
 				}
           }while(auxiliar);
@@ -167,7 +168,7 @@ public class Main {
         auxiliar = true; //reuso
 
         
-        if(((Board) board).jogoCompleto(tabuleiroTeste)) { 
+        if(((BoardInterface) board).jogoCompleto(tabuleiroTeste)) { 
         	auxiliar = false;
         }
         

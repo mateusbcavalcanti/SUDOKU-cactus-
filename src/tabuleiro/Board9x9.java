@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import model.exceptions.ConflitanteException;
 
-public class Board9x9 extends Board {
+public class Board9x9 extends Board implements BoardInterface {
 
 	public Board9x9(int coluna, int linha,int[][] tabuleiro) {
 		super(coluna, linha,tabuleiro);

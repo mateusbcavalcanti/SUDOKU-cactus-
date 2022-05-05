@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import model.exceptions.ConflitanteException;
 import model.exceptions.InvalidCharException;
 
-public class Board16x16 extends Board {
+public class Board16x16 extends Board implements BoardInterface {
 	
 	
 
