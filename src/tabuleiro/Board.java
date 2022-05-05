@@ -4,9 +4,9 @@ public abstract class Board {
 	
 	protected int coluna;
 	protected int linha;
-	private char [][] tabuleiro; 
+	private int [][] tabuleiro; 
 
-	public Board(int coluna, int linha, char tabuleiro[][]) {
+	public Board(int coluna, int linha, int tabuleiro[][]) {
 		this.coluna = coluna;
 		this.linha = linha;
 		this.tabuleiro = tabuleiro;
@@ -28,20 +28,20 @@ public abstract class Board {
 		this.linha = linha;
 	}
 
-	public char[][] getTabuleiro() {
+	public int[][] getTabuleiro() {
 		return tabuleiro;
 	}
 
 
 
-	public abstract void exibeMatriz(char[][] tabuleiro); 
+	public abstract void exibeMatriz(int[][] tabuleiro); 
 	
-	public abstract void conflitantes(char[][] tabuleiro, int linha, int coluna,char numJogado);
+	public abstract void conflitantes(int[][] tabuleiro, int linha, int coluna,int numJogado);
 		
-	public abstract void botao(int linha, int coluna, char tabuleiro[][]);
+	public abstract void botao(int linha, int coluna, int tabuleiro[][]);
 	
-	public abstract boolean posicoesFixas(char[][]tabuleiro, char[][]posicoes, int linha, int coluna);
+	public abstract boolean posicoesFixas(int[][]tabuleiro, int[][]posicoes, int linha, int coluna);
 	
-	public abstract boolean jogoCompleto(char[][] tabuleiro);
+	public abstract boolean jogoCompleto(int[][] tabuleiro);
 	
 }

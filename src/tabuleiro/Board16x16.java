@@ -9,27 +9,33 @@ public class Board16x16 extends Board {
 	
 	
 
-	public Board16x16(int coluna, int linha, char[][] tabuleiro) {
+	public Board16x16(int coluna, int linha, int[][] tabuleiro) {
 		super(coluna, linha, tabuleiro);
 	}
 
 	@Override
-	public void exibeMatriz(char[][] tabuleiro) { //Imprime o tabuleiro 16x16
+	public void exibeMatriz(int[][] tabuleiro) { //Imprime o tabuleiro 16x16
 		for (int i = 0; i < tabuleiro.length; i++) {
 	           for (int j = 0; j < tabuleiro.length; j++) {
-	                System.out.print(tabuleiro[i][j] + " ");
-	                if (j == 3 || j == 7 || j==11) System.out.print("| ");
+	        	   if(tabuleiro[i][j] <10) {
+	        		   System.out.print(tabuleiro[i][j] + "  ");
+	        	   }
+	        	   else {
+	        		   System.out.print(tabuleiro[i][j] + " "); 
+	        	   }
+	                
+	                if (j == 3 || j == 7 || j==11) System.out.print("|  ");
 	            }
 	            System.out.println();
 	            if (i == 3 || i == 7 || i==11)
-	                System.out.print("--------|---------|---------|---------\n");
+	                System.out.print("------------|--------------|--------------|-------------\n");
 	        }
 	        System.out.println();
 		
 	}
 
 	@Override
-	public void conflitantes(char tabuleiro[][], int linha, int coluna, char numJogado)throws ConflitanteException, InvalidCharException{
+	public void conflitantes(int tabuleiro[][], int linha, int coluna, int numJogado)throws ConflitanteException, InvalidCharException{
 		for (int i = 0; i < tabuleiro.length; i++) {
 			 if(tabuleiro[linha][i] == numJogado && i!= coluna ) { //verifica a linha e imprime as celulas conflitantes
 	   			 throw new ConflitanteException("Linha:"+ linha + " coluna:" + i + " ---- conflitam com a celula modificada"  );	
@@ -58,13 +64,13 @@ public class Board16x16 extends Board {
 	}
 
 	@Override
-	public void botao(int linha, int coluna, char[][] tabuleiro) {
-		char[]elementos = {'1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g'}; 
+	public void botao(int linha, int coluna, int[][] tabuleiro) {
+		int[]elementos = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}; 
  	   
-    	ArrayList<Character> test = new ArrayList<Character>();
-       	ArrayList<Character> testeColuna = new ArrayList<Character>();
-       	ArrayList<Character> testeQuadrante = new ArrayList<Character>();
-       	ArrayList<Character> testeLinha = new ArrayList<Character>();
+    	ArrayList<Integer> test = new ArrayList<Integer>();
+       	ArrayList<Integer> testeColuna = new ArrayList<Integer>();
+       	ArrayList<Integer> testeQuadrante = new ArrayList<Integer>();
+       	ArrayList<Integer> testeLinha = new ArrayList<Integer>();
        	
        	for(int i=0; i<elementos.length; i++) {//adicionando os valores de 1 a 9 ao list
        		test.add(elementos[i]);
@@ -102,9 +108,9 @@ public class Board16x16 extends Board {
 	}
 
 	@Override
-	public boolean posicoesFixas(char[][] tabuleiro,char[][] posicoes, int linha, int coluna) {//Pega o tabuleiro incial e armazena as posicoes para comparar com o tabuleiro
+	public boolean posicoesFixas(int[][] tabuleiro,int[][] posicoes, int linha, int coluna) {//Pega o tabuleiro incial e armazena as posicoes para comparar com o tabuleiro
 																								//gerado pelas modificações do usuario a fim de saber se aquela celula é a fixa ou nao
-		if(tabuleiro[linha][coluna] != posicoes[linha][coluna] || tabuleiro[linha][coluna] == '0' ) {
+		if(tabuleiro[linha][coluna] != posicoes[linha][coluna] || tabuleiro[linha][coluna] == 0 ) {
 			return true;
 		}
 		
@@ -116,10 +122,10 @@ public class Board16x16 extends Board {
 	}
 
 	@Override
-	public boolean jogoCompleto(char[][] tabuleiro) {
-		 ArrayList<Character> principal = new ArrayList<>();
-         ArrayList<Character> coluna = new ArrayList<>();
-         ArrayList<Character> linha = new ArrayList<>();
+	public boolean jogoCompleto(int[][] tabuleiro) {
+		 ArrayList<Integer> principal = new ArrayList<>();
+         ArrayList<Integer> coluna = new ArrayList<>();
+         ArrayList<Integer> linha = new ArrayList<>();
 
          if(tabuleiro.length != tabuleiro[0].length) return false;
 
@@ -128,7 +134,7 @@ public class Board16x16 extends Board {
 
                  for(int i1 = i; i1 < 3+i; i1++){
                      for(int j1 = j; j1 < 3+j; j1++){
-                         if(principal.contains(tabuleiro[i1][j1]) || principal.contains('0')){
+                         if(principal.contains(tabuleiro[i1][j1]) || principal.contains(0)){
                              return false;
                          }
                          principal.add(tabuleiro[i1][j1]);
@@ -141,7 +147,7 @@ public class Board16x16 extends Board {
 
          for(int i = 0; i < tabuleiro.length; i++){
              for(int i1 = 0; i1 < tabuleiro.length; i1++){
-                 if(coluna.contains(tabuleiro[i][i1]) || coluna.contains('0') ){
+                 if(coluna.contains(tabuleiro[i][i1]) || coluna.contains(0) ){
                      return false;
                  }
                  coluna.add(tabuleiro[i][i1]);
@@ -149,7 +155,7 @@ public class Board16x16 extends Board {
 
              for(int j = 0; j < tabuleiro.length; j++){
 
-                 if(linha.contains(tabuleiro[j][i]) || linha.contains('0')){
+                 if(linha.contains(tabuleiro[j][i]) || linha.contains(0)){
                      return false;
                  }
                  linha.add(tabuleiro[j][i]);
