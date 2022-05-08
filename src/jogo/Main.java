@@ -6,115 +6,85 @@ import java.util.Scanner;
 import model.exceptions.ConflitanteException;
 import model.exceptions.InvalidCharException;
 import tabuleiro.Board;
-import tabuleiro.Board16x16;
-import tabuleiro.Board9x9;
-import tabuleiro.BoardInterface;
+import tabuleiro.BoardHexa;
+import tabuleiro.BoardDecim;
 
 public class Main {
 
 	public static void main(String[] args) {
 	Locale.setDefault(Locale.US);
 	Scanner sc = new Scanner(System.in);
-	int[][] tabuleiro9x9 = {
-			{0,8,0,5,7,6,2,0,0},
-			{0,0,0,4,0,2,0,0,0},
-			{0,0,0,0,3,9,5,4,8},
-			{6,3,0,9,0,0,8,5,2},
-			{0,9,0,2,0,0,3,7,0},
-			{8,0,0,0,5,0,6,9,4},
-			{2,5,7,6,0,3,4,8,9},
-			{3,0,8,7,0,0,0,2,5},
-			{0,4,0,0,0,0,0,0,6}
-			}; 
-	int[][] tabuleiro16x16 = {
-				{1,5,8,0,12,15,0,14,0,2,11,0,6,0,0,7},
-				{6,13,0,0,0,0,0,11,8,0,0,5,14,1,0,11},
-				{0,2,0,0,8,0,11,0,1,15,0,13,12,0,0,0},
-				{11,0,0,6,0,14,12,0,0,16,13,0,15,8,0,0},
-				{8,0,0,0,4,0,6,15,9,1,2,0,0,12,0,3},
-				{2,14,13,12,16,0,3,0,0,0,0,0,1,11,11,0},
-				{0,15,3,0,0,2,11,0,4,0,0,0,7,0,5,6},
-				{0,12,0,11,15,0,0,5,0,6,1,4,0,14,16,0},
-				{14,16,11,0,6,0,0,5,11,0,12,0,0,2,0,8},
-				{2,7,0,8,11,16,14,0,0,0,0,1,12,0,5,11},
-				{12,11,0,0,15,2,11,7,0,0,9,0,13,0,0,3},
-				{0,0,13,5,12,0,11,0,4,2,16,0,15,0,7,14},
-				{0,15,0,3,0,11,9,0,0,0,11,0,0,16,6,0},
-				{16,8,5,0,2,0,1,15,7,6,14,3,0,12,0,0},
-				{7,4,0,0,11,12,0,0,0,0,1,13,5,0,0,15},
-				{1,0,12,9,16,0,5,13,2,4,11,0,8,3,0,0}
-			};
+	
+	int[][] tabuleiroDeci = new int[9][9];
+	int[][] tabuleiroHexa = new int[16][16];
 	int linha = 0;
 	int coluna = 0;
 	int numJogado = 0;
-	int matrizPosicoesFixas[][] = new int[9][9];
 	char botao;
+	char dificuldade;
 	boolean auxiliar = false;
-	
-	
+	Board board = null;
+	Board boardFixo = null;
+	int celulasZeradas = 0;
+	int celula = 0;
 
-	System.out.println("Escolha o tipo de tabuleiro que deseja jogar:\ntabuleiro 9x9 <x>   tabuleiro 16x16 <y>");
+	System.out.println("  Escolha o tipo de tabuleiro que deseja jogar:\n  TABULEIRO9X9<x>  TABULEIRO16x16 <y>");
 	botao = sc.next().charAt(0);
-	Object board = null;
-	int[][] tabuleiroTeste = null;
-	int[][] posicoesTeste = null;
+	System.out.println("  Escolha o nivel de dificuldade do jogo:\n  FACIL<f>     MEDIO<m>     DIFICIL<d>");
+	dificuldade = sc.next().charAt(0);
 	
 	if(botao == 'x') {
-		int[][] posicoes = {
-			{0,8,0,5,7,6,2,0,0},
-			{0,0,0,4,0,2,0,0,0},
-			{0,0,0,0,3,9,5,4,8},
-			{6,3,0,9,0,0,8,5,2},
-			{0,9,0,2,0,0,3,7,0},
-			{8,0,0,0,5,0,6,9,4},
-			{2,5,7,6,0,3,4,8,9},
-			{3,0,8,7,0,0,0,2,5},
-			{0,4,0,0,0,0,0,0,6}
-			};
 		
-		posicoesTeste = posicoes;
-		int tabuleiro[][] = tabuleiro9x9;
-		tabuleiroTeste = tabuleiro;
-		 board = new Board9x9(linha, coluna, tabuleiro);
-		
-		
+		board = new BoardDecim(linha,coluna,tabuleiroDeci,celula);
+		boardFixo = new BoardDecim(linha, coluna, tabuleiroDeci,celula);
+
+		 if(dificuldade == 'f') {
+			 celulasZeradas = 20;
+		 }
+		 
+		 else if(dificuldade == 'm'){
+			 celulasZeradas = 40;		 
+		 }
+		 
+		 else if(dificuldade == 'd') {
+			 celulasZeradas = 60;
+		 }
+		 
+		 
+		 board.setTabuleiro(board.geradorTabuleiro(celulasZeradas));
+		 boardFixo.setTabuleiro(board.getTabuleiro());
+		 
 	}
 	
 	
 	else if(botao == 'y') {
-		int[][] posicoes = {
-				{1,5,8,0,12,15,0,14,0,2,11,0,6,0,0,7},
-				{6,13,0,0,0,0,0,11,8,0,0,5,14,1,0,11},
-				{0,2,0,0,8,0,11,0,1,15,0,13,12,0,0,0},
-				{11,0,0,6,0,14,12,0,0,16,13,0,15,8,0,0},
-				{8,0,0,0,4,0,6,15,9,1,2,0,0,12,0,3},
-				{2,14,13,12,16,0,3,0,0,0,0,0,1,11,11,0},
-				{0,15,3,0,0,2,11,0,4,0,0,0,7,0,5,6},
-				{0,12,0,11,15,0,0,5,0,6,1,4,0,14,16,0},
-				{14,16,11,0,6,0,0,5,11,0,12,0,0,2,0,8},
-				{2,7,0,8,11,16,14,0,0,0,0,1,12,0,5,11},
-				{12,11,0,0,15,2,11,7,0,0,9,0,13,0,0,3},
-				{0,0,13,5,12,0,11,0,4,2,16,0,15,0,7,14},
-				{0,15,0,3,0,11,9,0,0,0,11,0,0,16,6,0},
-				{16,8,5,0,2,0,1,15,7,6,14,3,0,12,0,0},
-				{7,4,0,0,11,12,0,0,0,0,1,13,5,0,0,15},
-				{1,0,12,9,16,0,5,13,2,4,11,0,8,3,0,0}
-			};
 		
 		
-		posicoesTeste = posicoes;
-		int tabuleiro[][] = tabuleiro16x16;
-		tabuleiroTeste = tabuleiro;
-		board = new Board16x16(linha, coluna, tabuleiro);
+		board = new BoardHexa(linha, coluna, tabuleiroHexa,celula);
+		boardFixo = new BoardHexa(linha, coluna, tabuleiroHexa,celula);
+		
+		if(dificuldade == 'f') {
+			 celulasZeradas = 40;
+		 }
+		 else if(dificuldade == 'm'){
+			 celulasZeradas = 80;
+		 }
+		 else if(dificuldade == 'd') {
+			 celulasZeradas = 160;
+		 }
+		
+		 board.setTabuleiro(board.geradorTabuleiro(celulasZeradas));
+		 boardFixo.setTabuleiro(board.getTabuleiro());
+		 
+		
 		
 	}
-	
-	
+
 	do {
 		try {
         auxiliar = true;
         System.out.println();
-        ((BoardInterface) board).exibeMatriz(tabuleiroTeste);
+        board.exibeMatriz();
         
         
         System.out.println("Insira a linha e a coluna e em seguida o numero da jogada");            
@@ -129,9 +99,14 @@ public class Main {
             System.out.print("Número > ");
             numJogado = sc.nextInt();
             
-            if(((BoardInterface) board).posicoesFixas(tabuleiroTeste, posicoesTeste, linha, coluna))  {
-				tabuleiroTeste[linha][coluna] = numJogado;
-				((BoardInterface) board).conflitantes(tabuleiroTeste, linha, coluna, numJogado);
+            if(board.posicoesFixas(boardFixo.getTabuleiro(), linha, coluna))  {
+				
+            	board.setCelula(linha,coluna,numJogado);
+            	
+				board.conflitante(linha, coluna, numJogado);
+				
+				boardFixo.exibeMatriz();
+				
 				auxiliar = false;
 				
             } else {
@@ -140,26 +115,25 @@ public class Main {
 
         } while (auxiliar);
         
+        
         auxiliar = true; //reuso
         
         System.out.println("\nDeseja saber quais numeros são validos para determinada celula? SIM<s> NAO<n>");
         botao = sc.next().charAt(0);
         
-        
-         
-        if(botao == 's') {
+       if(botao == 's') {
         	do {
         		System.out.print("Linha > ");
 				linha = sc.nextInt();
 				System.out.print("Coluna > ");
 				coluna = sc.nextInt();
         		
-				if(! ((BoardInterface) board).posicoesFixas(tabuleiroTeste, posicoesTeste, linha, coluna)) {
+				if(! board.posicoesFixas(boardFixo.getTabuleiro(), linha, coluna)) {
 					System.out.println("Esta celula nao pode ser modificada, teste outra para que o botao funcione");
 				}
 				
 				else {
-					((BoardInterface) board).botao(linha, coluna, tabuleiroTeste);
+					board.botao(linha, coluna);
 					auxiliar = false;
 				}
           }while(auxiliar);
@@ -168,7 +142,7 @@ public class Main {
         auxiliar = true; //reuso
 
         
-        if(((BoardInterface) board).jogoCompleto(tabuleiroTeste)) { 
+        if(board.jogoCompleto()) { 
         	auxiliar = false;
         }
         
