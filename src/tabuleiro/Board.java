@@ -64,6 +64,7 @@ public abstract class Board {
 	
 	public abstract  int[][] geradorTabuleiro(int celulasZeradas);
 	 
+	public abstract int[][]igualaMatriz(int tabuleiro[][], int posicoes[][]); //metodo que estou igualando as 
 }
 	
 	

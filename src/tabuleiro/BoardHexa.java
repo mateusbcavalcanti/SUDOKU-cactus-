@@ -215,6 +215,19 @@ public class BoardHexa extends Board {
 	       		}     
 	}
 
+
+
+
+	@Override
+	public int[][] igualaMatriz(int tabuleiro[][],int[][] posicoes) {
+		for(int i=0; i< this.tabuleiro.length; i++) {
+			 for(int j = 0; j < this.tabuleiro.length; j++) {
+				 this.tabuleiro[i][j] = posicoes[i][j];
+			 }
+		 }
+		return posicoes;
+	}
+
 	
 
 	

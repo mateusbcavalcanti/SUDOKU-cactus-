@@ -217,6 +217,16 @@ public class BoardDecim extends Board {
 	}
 
 
+	@Override
+	public int[][] igualaMatriz(int tabuleiro[][],int[][] posicoes) {
+		for(int i=0; i< tabuleiro.length; i++) {
+			 for(int j = 0; j < tabuleiro.length; j++) {
+				 posicoes[i][j] = tabuleiro[i][j];
+			 }
+		 }
+		return posicoes;
+	}
+
 	
 
 }
