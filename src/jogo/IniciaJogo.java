@@ -127,14 +127,14 @@ public class IniciaJogo extends AtributosAux {
 	        
 	        auxiliar = true; //reuso
 	        
-	        
-	        	
+	        do {
+	        	try {
 	        System.out.println("\nDeseja saber quais numeros são validos para determinada celula? SIM<s> NAO<n>");
 	        botao = sc.next().charAt(0);
-	       
+	   	
 	       if(botao == 's') {
 	        	do {
-	        		try {
+	        		 try {
 	        		System.out.print("Linha > ");
 					linha = sc.nextInt();
 					System.out.print("Coluna > ");
@@ -149,21 +149,28 @@ public class IniciaJogo extends AtributosAux {
 						board.botao(linha, coluna);
 						auxiliar = false;
 					}
-	        }
-	        		catch(ArrayIndexOutOfBoundsException e) {
-	    	System.out.println("\n Digite apenas Valores dentro do tamanho do tabuleiro \n");
-		    }
-	        	catch(InputMismatchException e) {
-       		System.out.println("\n~~Digite apenas números referentes a linha coluna e valor jogado!!~~\n");
-       		sc.next();
-	        	}
+	        		 }catch(ArrayIndexOutOfBoundsException e) {
+	      	    	System.out.println("\n Digite apenas Valores dentro do tamanho do tabuleiro \n");
+	      	        	}
+					
+	        
 	        		
 	          }while(auxiliar);
 	        
+	        	
 	       }else if(botao == 'n') {
-	        	auxiliar=true;
+	        	
+	    	   auxiliar=true;
 	        }
+	       if(auxiliar){
+	    	   throw new ConflitanteException("\n~~Digite apenas números referentes a linha coluna e valor jogado!!~~\n");
+	    	   }
 	       
+	        	}catch(ConflitanteException e) {
+	        		System.out.println(e.getMessage());
+	        	}
+	        
+	        }while(auxiliar);
 	        
 	        	auxiliar = true; //reuso
 
@@ -173,9 +180,8 @@ public class IniciaJogo extends AtributosAux {
 	        }
 	        
 			
-			
 	    } while (auxiliar);
-	    System.out.println("Voce completou o sudoku, parabens");
+	    System.out.println("Voce completou o sudoku, parabéns");
 		
 	  
 

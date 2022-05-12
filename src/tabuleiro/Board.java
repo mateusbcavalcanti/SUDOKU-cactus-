@@ -1,9 +1,5 @@
 package tabuleiro;
 
-import java.util.Random;
-
-import model.exceptions.ConflitanteException;
-
 public abstract class Board {
 	
 	protected int coluna;

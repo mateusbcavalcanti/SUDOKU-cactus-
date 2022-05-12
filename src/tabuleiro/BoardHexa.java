@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import model.exceptions.ConflitanteException;
-import model.exceptions.InvalidCharException;
 
 public class BoardHexa extends Board {
 	
@@ -187,7 +186,7 @@ public class BoardHexa extends Board {
 
 	
 	@Override
-	public void conflitante(int linha, int coluna, int numJogado) throws ConflitanteException, InvalidCharException{
+	public void conflitante(int linha, int coluna, int numJogado) throws ConflitanteException{
 		for (int i = 0; i < this.tabuleiro.length; i++) {
 			 if(this.tabuleiro[linha][i] == numJogado && i!= coluna ) { //verifica a linha e imprime as celulas conflitantes
 	   			 throw new ConflitanteException("Linha:"+ linha + " coluna:" + i + " ---- conflitam com a celula modificada"  );	
