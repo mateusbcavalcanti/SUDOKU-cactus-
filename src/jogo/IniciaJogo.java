@@ -8,11 +8,44 @@ import tabuleiro.BoardDecim;
 import tabuleiro.BoardHexa;
 
 public class IniciaJogo extends AtributosAux {
-	
+	Scanner sc = new Scanner(System.in);
 
 	public IniciaJogo() {
 		
-		Scanner sc = new Scanner(System.in);
+		
+		setandoTabDif();
+			
+		do {
+		
+	        auxiliar = true;
+	        System.out.println();
+	        board.exibeMatriz();
+		
+			jogada();
+	        
+	        
+	        auxiliar = true; //reuso
+	        
+	       botaoAjuda();
+	        
+	        	auxiliar = true; //reuso
+
+	        
+	        if(board.jogoCompleto()) { 
+	        	auxiliar = false;
+	        }
+	        
+			
+	    } while (auxiliar);
+	    System.out.println("Voce completou o sudoku, parabéns");
+		
+	  
+
+		sc.close();
+	}
+	
+	
+	public void setandoTabDif() {
 		do {
 			try {
 		auxiliar=true;
@@ -80,111 +113,89 @@ public class IniciaJogo extends AtributosAux {
 			}
 		
 		}while(auxiliar);
-			
+	}
+	public void jogada() {
 		do {
-		
-	        auxiliar = true;
-	        System.out.println();
-	        board.exibeMatriz();
-		
-			do {
-	        	try {
-	        System.out.println("Insira a linha e a coluna e em seguida o numero da jogada");            
-	     
-	        
-	            System.out.print("Linha > ");
-	            linha = sc.nextInt();
-	        
-	            System.out.print("Coluna > ");
-	            coluna = sc.nextInt();
-	        
-	            System.out.print("Número > ");
-	            numJogado = sc.nextInt();
-	        	   
-	            if(board.posicoesFixas(boardFixo.getTabuleiro(), linha, coluna))  {
-					
-	            	board.setCelula(linha,coluna,numJogado);
-	            	
-					board.conflitante(linha, coluna, numJogado);
-					
+        	try {
+        System.out.println("Insira a linha e a coluna e em seguida o numero da jogada");            
+     
+        
+            System.out.print("Linha > ");
+            linha = sc.nextInt();
+        
+            System.out.print("Coluna > ");
+            coluna = sc.nextInt();
+        
+            System.out.print("Número > ");
+            numJogado = sc.nextInt();
+        	   
+            if(board.posicoesFixas(boardFixo.getTabuleiro(), linha, coluna))  {
+				
+            	board.setCelula(linha,coluna,numJogado);
+            	
+				board.conflitante(linha, coluna, numJogado);
+				
+				auxiliar = false;
+				
+            } else {
+				System.out.println("\nEsta celula nao pode ser modificada, tente novamente\n");
+            }
+     
+    	    }
+        	catch(ArrayIndexOutOfBoundsException e) {
+		System.out.println("\n~~Digite apenas valores dentros dos limites de linha e coluna do tabuleiro~~\n");
+        	}
+        	catch(InputMismatchException e) {
+    		System.out.println("\n~~Digite apenas números referentes a linha coluna e valor jogado!!~~\n");
+    		sc.next();
+        	}
+        	
+        } while (auxiliar);
+	}
+	public void botaoAjuda() {
+		do {
+        	try {
+        System.out.println("\nDeseja saber quais numeros são validos para determinada celula? SIM<s> NAO<n>");
+        botao = sc.next().charAt(0);
+   	
+       if(botao == 's') {
+        	do {
+        		 try {
+        		System.out.print("Linha > ");
+				linha = sc.nextInt();
+				System.out.print("Coluna > ");
+				coluna = sc.nextInt();
+        		
+	    
+				if(!board.posicoesFixas(boardFixo.getTabuleiro(), linha, coluna)) {
+					System.out.println("Esta celula nao pode ser modificada, teste outra para que o botao funcione");
+				}
+				
+				else {
+					board.botao(linha, coluna);
 					auxiliar = false;
-					
-	            } else {
-					System.out.println("\nEsta celula nao pode ser modificada, tente novamente\n");
-	            }
-	     
-        	    }
-	        	catch(ArrayIndexOutOfBoundsException e) {
-    		System.out.println("\n~~Digite apenas valores dentros dos limites de linha e coluna do tabuleiro~~\n");
-	        	}
-	        	catch(InputMismatchException e) {
-        		System.out.println("\n~~Digite apenas números referentes a linha coluna e valor jogado!!~~\n");
-        		sc.next();
-	        	}
-	        	
-	        } while (auxiliar);
-	        
-	        
-	        auxiliar = true; //reuso
-	        
-	        do {
-	        	try {
-	        System.out.println("\nDeseja saber quais numeros são validos para determinada celula? SIM<s> NAO<n>");
-	        botao = sc.next().charAt(0);
-	   	
-	       if(botao == 's') {
-	        	do {
-	        		 try {
-	        		System.out.print("Linha > ");
-					linha = sc.nextInt();
-					System.out.print("Coluna > ");
-					coluna = sc.nextInt();
-	        		
-		    
-					if(!board.posicoesFixas(boardFixo.getTabuleiro(), linha, coluna)) {
-						System.out.println("Esta celula nao pode ser modificada, teste outra para que o botao funcione");
-					}
-					
-					else {
-						board.botao(linha, coluna);
-						auxiliar = false;
-					}
-	        		 }catch(ArrayIndexOutOfBoundsException e) {
-	      	    	System.out.println("\n Digite apenas Valores dentro do tamanho do tabuleiro \n");
-	      	        	}
-					
-	        
-	        		
-	          }while(auxiliar);
-	        
-	        	
-	       }else if(botao == 'n') {
-	        	
-	    	   auxiliar=true;
-	        }
-	       if(auxiliar){
-	    	   throw new ConflitanteException("\n~~Digite apenas números referentes a linha coluna e valor jogado!!~~\n");
-	    	   }
-	       
-	        	}catch(ConflitanteException e) {
-	        		System.out.println(e.getMessage());
-	        	}
-	        
-	        }while(auxiliar);
-	        
-	        	auxiliar = true; //reuso
-
-	        
-	        if(board.jogoCompleto()) { 
-	        	auxiliar = false;
-	        }
-	        
-			
-	    } while (auxiliar);
-	    System.out.println("Voce completou o sudoku, parabéns");
-		
-	  
-
-		sc.close();
+				}
+        		 }catch(ArrayIndexOutOfBoundsException e) {
+      	    	System.out.println("\n Digite apenas Valores dentro do tamanho do tabuleiro \n");
+      	        	}
+				
+        
+        		
+          }while(auxiliar);
+        
+        	
+       }else if(botao == 'n') {
+        	
+    	   auxiliar=true;
+        }
+       if(auxiliar){
+    	   throw new ConflitanteException("\n~~Digite apenas números referentes a linha coluna e valor jogado!!~~\n");
+    	   }
+       
+        	}catch(ConflitanteException e) {
+        		System.out.println(e.getMessage());
+        	}
+        
+        }while(auxiliar);
 	}
 }
