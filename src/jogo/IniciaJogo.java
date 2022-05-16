@@ -14,7 +14,8 @@ public class IniciaJogo extends AtributosAux {
 		
 		
 		setandoTabDif();
-			
+		
+		long tempoInicial=System.currentTimeMillis();
 		do {
 		
 	        auxiliar = true;
@@ -38,7 +39,9 @@ public class IniciaJogo extends AtributosAux {
 			
 	    } while (auxiliar);
 	    System.out.println("Voce completou o sudoku, parabéns");
-		
+	    
+	    long tempoFinal=System.currentTimeMillis();
+        System.out.println("\nTempo total: "+(tempoFinal-tempoInicial)/1000+"s");
 	  
 
 		sc.close();
@@ -186,7 +189,7 @@ public class IniciaJogo extends AtributosAux {
         	
        }else if(botao == 'n') {
         	
-    	   auxiliar=true;
+    	   auxiliar=false;
         }
        if(auxiliar){
     	   throw new ConflitanteException("\n~~Digite apenas números referentes a linha coluna e valor jogado!!~~\n");
