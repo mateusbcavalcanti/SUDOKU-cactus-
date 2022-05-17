@@ -8,6 +8,8 @@ import java.io.ObjectOutputStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import model.exceptions.ConflitanteException;
 import player.Jogador;
 import tabuleiro.BoardDecim;
@@ -50,24 +52,24 @@ public class IniciaJogo extends AtributosAux {
 	        
 	        	auxiliar = true; //reuso
 	        int numeroQualquer = sc.nextInt();	//numero qualquerpara testar o ranking        
-	        if(board.jogoCompleto()) { 
+	       if(board.jogoCompleto()) { 
 	        	auxiliar = false;
 	        }
 	        
 			
 	    } while (auxiliar);
-	    System.out.println("Voce completou o sudoku, parabéns");
+		JOptionPane.showMessageDialog(null,"~~> VOCÊ GANHOU O SUDOKU CACTUS!! PARABÉNS!!! <~~");
 	    
 	    long tempoFinal=System.currentTimeMillis();//setando o tempo
 	    tempoRanking = (tempoFinal-tempoInicial);
 	    System.out.println(temporarizador());
         
-        System.out.println("Insira o seu nome");//setando nome
-        nome = sc.nextLine(); 
+        //System.out.println("Insira o seu nome");//setando nome
+        //nome = sc.nextLine(); 
         
         jogador.gravarRanking();
        
-        
+        jogador.printarRanking();
         
      
 		sc.close();
@@ -155,7 +157,8 @@ public class IniciaJogo extends AtributosAux {
 		}
 			}
 			catch(ConflitanteException e) {
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
+				JOptionPane.showMessageDialog(null,e.getMessage(),"Alerta!", 2);
 			}
 		
 		}while(auxiliar);
@@ -186,15 +189,17 @@ public class IniciaJogo extends AtributosAux {
 				auxiliar = false;
 				
             } else {
-				System.out.println("\nEsta celula nao pode ser modificada, tente novamente\n");
+            	JOptionPane.showMessageDialog(null,"~~Esta celula nao pode ser modificada, teste outra para que o botao funcione.~~","Alerta!!", 2);
             }
      
     	    }
         	catch(ArrayIndexOutOfBoundsException e) {
-		System.out.println("\n~~Digite apenas valores dentros dos limites de linha e coluna do tabuleiro~~\n");
+		//System.out.println("\n~~Digite apenas valores dentros dos limites de linha e coluna do tabuleiro~~\n");
+        		JOptionPane.showMessageDialog(null,"~~Digite apenas valores dentros dos limites de linha e coluna do tabuleiro~~","Alerta!", 2);
         	}
         	catch(InputMismatchException e) {
-    		System.out.println("\n~~Digite apenas números referentes a linha coluna e valor jogado!!~~\n");
+    		//System.out.println("\n~~Digite apenas números referentes a linha coluna e valor jogado!!~~\n");
+    		JOptionPane.showMessageDialog(null,"~~Digite apenas números referentes a linha coluna e valor jogado!!~~","Alerta!", 2);
     		sc.next();
         	}
         	
@@ -219,7 +224,7 @@ public class IniciaJogo extends AtributosAux {
         		
 	    
 				if(!board.posicoesFixas(boardFixo.getTabuleiro(), linha, coluna)) {
-					System.out.println("Esta celula nao pode ser modificada, teste outra para que o botao funcione");
+					JOptionPane.showMessageDialog(null,"Esta celula nao pode ser modificada, teste outra para que o botao funcione","Alerta!!", 2);
 				}
 				
 				else {
@@ -227,7 +232,8 @@ public class IniciaJogo extends AtributosAux {
 					auxiliar = false;
 				}
         		 }catch(ArrayIndexOutOfBoundsException e) {
-      	    	System.out.println("\n Digite apenas Valores dentro do tamanho do tabuleiro \n");
+      	    	//System.out.println("\n Digite apenas Valores dentro do tamanho do tabuleiro \n");
+      	    	JOptionPane.showMessageDialog(null,e.getMessage(),"Alerta!", 2);
       	        	}
 				
         
@@ -244,7 +250,8 @@ public class IniciaJogo extends AtributosAux {
     	   }
        
         	}catch(ConflitanteException e) {
-        		System.out.println(e.getMessage());
+        		//System.out.println(e.getMessage());
+        		JOptionPane.showMessageDialog(null,e.getMessage(),"Alerta!", 2);
         	}
         
         }while(auxiliar);

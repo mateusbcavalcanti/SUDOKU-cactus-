@@ -41,8 +41,8 @@ public class Jogador  {
 	}
 
 	public void gravarRanking() {
-
-		nome = sc.nextLine();
+		
+		nome = JOptionPane.showInputDialog("Insira seu nome:");
 
 		tempo = getTempo();
 		if (jogo.AtributosAux.dificuldade == 'd') {
