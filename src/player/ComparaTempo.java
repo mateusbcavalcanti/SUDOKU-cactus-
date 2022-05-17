@@ -2,7 +2,7 @@ package player;
 
 import java.util.Comparator;
 
-public class SortTempo implements Comparator<Jogador> {
+public class ComparaTempo implements Comparator<Jogador> {
 
     @Override
     public int compare(Jogador o1, Jogador o2) {

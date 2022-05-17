@@ -1,5 +1,10 @@
 package jogo;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -9,8 +14,11 @@ import tabuleiro.BoardDecim;
 import tabuleiro.BoardHexa;
 
 public class IniciaJogo extends AtributosAux {
+	
 	Scanner sc = new Scanner(System.in);
+	
 	Jogador jogador = new Jogador();
+	
 	 public static int tempoDecorrido = 0;
 	 public static int segundos =0;
 	 public static int minutos =0;
@@ -22,8 +30,8 @@ public class IniciaJogo extends AtributosAux {
 
 	public IniciaJogo() {
 		
-		jogador.lerRanking();
 		
+		jogador.printarRanking();
 		setandoTabDif();
 		
 		long tempoInicial=System.currentTimeMillis();
@@ -41,7 +49,7 @@ public class IniciaJogo extends AtributosAux {
 	       //botaoAjuda();
 	        
 	        	auxiliar = true; //reuso
-	        int jogador = sc.nextInt();	        
+	        int numeroQualquer = sc.nextInt();	//numero qualquerpara testar o ranking        
 	        if(board.jogoCompleto()) { 
 	        	auxiliar = false;
 	        }
@@ -52,21 +60,23 @@ public class IniciaJogo extends AtributosAux {
 	    
 	    long tempoFinal=System.currentTimeMillis();//setando o tempo
 	    tempoRanking = (tempoFinal-tempoInicial);
-	    temporarizador();
+	    System.out.println(temporarizador());
         
         System.out.println("Insira o seu nome");//setando nome
-        sc.nextLine();       
-        jogador.salvar();
+        nome = sc.nextLine(); 
         
-
+        jogador.gravarRanking();
+       
+        
+        
+     
 		sc.close();
 	}
 	
-	public void menu() {
-		System.out.println("SUDOKU.CACTUS ---- BEM VINDO");
-	}
+	//FUNCOES ABAIXO SÃO PARA CONTROLE DO INCIA JOGO
 	
-	public void temporarizador() {
+	
+	public String temporarizador() {
 		
 		horas = (int) (tempoRanking/3600000);                                                                    
 	    minutos = (int) ((tempoRanking/60000) % 60);
@@ -75,8 +85,10 @@ public class IniciaJogo extends AtributosAux {
 	    minutos_string = String.format("%02d", minutos);
 	    horas_string = String.format("%02d", horas);
 	    tempoRanking1 = horas_string+":"+minutos_string+":"+segundos_string;
-	    System.out.println("Seu tempo foi" +tempoRanking1);
 	    jogador.setTempo(tempoRanking1); 
+	    return tempoRanking1;
+	    
+	    
 	}
 	
 	public void setandoTabDif() {

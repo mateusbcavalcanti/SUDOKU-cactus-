@@ -23,14 +23,16 @@ public class Jogador  {
 	private String objetos;
 	private String dif;
 	private String arquivo= "save.txt";
+	int[][] tabuleiro;
 	
 	Scanner sc = new Scanner(System.in);
 
-	public Jogador(String nome, String tempo, String dif) {
+	public Jogador(String nome, String tempo, String dif, int[][] tabuleiro) {
 
 		this.nome = nome;
 		this.tempo = tempo;
 		this.dif = dif;
+		this.tabuleiro = tabuleiro;
 
 	}
 
@@ -38,7 +40,7 @@ public class Jogador  {
 
 	}
 
-	public void salvar() {
+	public void gravarRanking() {
 
 		nome = sc.nextLine();
 
@@ -69,7 +71,7 @@ public class Jogador  {
 
 	}
 
-	public void lerRanking() {
+	public void printarRanking() {
 		Path caminho = Paths.get("jogadores.txt");
 		try {
 			byte[] texto = Files.readAllBytes(caminho);
@@ -88,14 +90,14 @@ public class Jogador  {
 			nome = palavras[i];
 			tempo = palavras[i + 1];
 			dif = palavras[i + 2];
-			ar.add(new Jogador(nome, tempo, dif));
+			ar.add(new Jogador(nome, tempo, dif,tabuleiro));
 
 			i+=2;
 			
 
 		}
 
-		Collections.sort(ar, new SortTempo());
+		Collections.sort(ar, new ComparaTempo());
 
 		if (ar.size() >= 10) { //controla o ranking para exibir apena 10 primeiros
 			for (int i = 0; i < 10; i++) {
@@ -152,6 +154,20 @@ public class Jogador  {
 	public void setArquivo(String arquivo) {
 		this.arquivo = arquivo;
 	}
+
+	public String getDif() {
+		return dif;
+	}
+
+	public int[][] getTabuleiro() {
+		return tabuleiro;
+	}
+
+	public void setTabuleiro(int[][] tabuleiro) {
+		this.tabuleiro = tabuleiro;
+	}
+	
+	
 	
 
 }

@@ -15,6 +15,24 @@ public abstract class Board {
 		
 	}
 	
+	
+	public abstract void exibeMatriz(); 
+	
+	public abstract void conflitante(int linha, int coluna,int numJogado);
+		
+	public abstract void botao(int linha, int coluna);
+	
+	public abstract boolean posicoesFixas(int[][]posicoes, int linha, int coluna);
+	
+	public abstract boolean jogoCompleto();
+	
+	public abstract int[][] removeCelulas(int celulasZeradas);
+	
+	public abstract  int[][] geradorTabuleiro(int celulasZeradas);
+	 
+	public abstract int[][]igualaMatriz(int tabuleiro[][], int posicoes[][]); //metodo que estou igualando as 
+	
+	
 	public int getColuna() {
 		return coluna;
 	}
@@ -40,27 +58,9 @@ public abstract class Board {
 		this.tabuleiro = tabuleiro;
 	}
 	
-	
 	public void setCelula(int linha, int coluna, int numeroJogado) {
 		this.tabuleiro[linha][coluna] = numeroJogado;
 	}
-
-	
-	public abstract void exibeMatriz(); 
-	
-	public abstract void conflitante(int linha, int coluna,int numJogado);
-		
-	public abstract void botao(int linha, int coluna);
-	
-	public abstract boolean posicoesFixas(int[][]posicoes, int linha, int coluna);
-	
-	public abstract boolean jogoCompleto();
-	
-	public abstract int[][] removeCelulas(int celulasZeradas);
-	
-	public abstract  int[][] geradorTabuleiro(int celulasZeradas);
-	 
-	public abstract int[][]igualaMatriz(int tabuleiro[][], int posicoes[][]); //metodo que estou igualando as 
 }
 	
 	
