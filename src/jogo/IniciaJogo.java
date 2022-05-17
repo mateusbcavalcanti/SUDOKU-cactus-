@@ -1,17 +1,28 @@
 package jogo;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import model.exceptions.ConflitanteException;
-import java.util.InputMismatchException;
+import player.Jogador;
 import tabuleiro.BoardDecim;
 import tabuleiro.BoardHexa;
 
 public class IniciaJogo extends AtributosAux {
 	Scanner sc = new Scanner(System.in);
+	Jogador jogador = new Jogador();
+	 public static int tempoDecorrido = 0;
+	 public static int segundos =0;
+	 public static int minutos =0;
+	 public static int horas =0;
+	 static String segundos_string = String.format("%02d", segundos);
+	 static String minutos_string = String.format("%02d", minutos);
+	 static String horas_string = String.format("%02d", horas);
+	 static String tempoRanking1;
 
 	public IniciaJogo() {
 		
+		jogador.lerRanking();
 		
 		setandoTabDif();
 		
@@ -22,16 +33,15 @@ public class IniciaJogo extends AtributosAux {
 	        System.out.println();
 	        board.exibeMatriz();
 		
-			jogada();
+			//jogada();
 	        
 	        
 	        auxiliar = true; //reuso
 	        
-	       botaoAjuda();
+	       //botaoAjuda();
 	        
 	        	auxiliar = true; //reuso
-
-	        
+	        int jogador = sc.nextInt();	        
 	        if(board.jogoCompleto()) { 
 	        	auxiliar = false;
 	        }
@@ -40,13 +50,34 @@ public class IniciaJogo extends AtributosAux {
 	    } while (auxiliar);
 	    System.out.println("Voce completou o sudoku, parabéns");
 	    
-	    long tempoFinal=System.currentTimeMillis();
-        System.out.println("\nTempo total: "+(tempoFinal-tempoInicial)/1000+"s");
-	  
+	    long tempoFinal=System.currentTimeMillis();//setando o tempo
+	    tempoRanking = (tempoFinal-tempoInicial);
+	    temporarizador();
+        
+        System.out.println("Insira o seu nome");//setando nome
+        sc.nextLine();       
+        jogador.salvar();
+        
 
 		sc.close();
 	}
 	
+	public void menu() {
+		System.out.println("SUDOKU.CACTUS ---- BEM VINDO");
+	}
+	
+	public void temporarizador() {
+		
+		horas = (int) (tempoRanking/3600000);                                                                    
+	    minutos = (int) ((tempoRanking/60000) % 60);
+	    segundos = (int) ((tempoRanking/1000) % 60);
+	    segundos_string = String.format("%02d", segundos);
+	    minutos_string = String.format("%02d", minutos);
+	    horas_string = String.format("%02d", horas);
+	    tempoRanking1 = horas_string+":"+minutos_string+":"+segundos_string;
+	    System.out.println("Seu tempo foi" +tempoRanking1);
+	    jogador.setTempo(tempoRanking1); 
+	}
 	
 	public void setandoTabDif() {
 		do {
@@ -63,7 +94,7 @@ public class IniciaJogo extends AtributosAux {
 			boardFixo = new BoardDecim(linha, coluna, tabuleiroDeci,celula);
 
 			 if(dificuldade == 'f') {
-				 celulasZeradas = 20;
+				 celulasZeradas = 0;
 				 auxiliar=false;
 			 }
 			 
@@ -117,6 +148,8 @@ public class IniciaJogo extends AtributosAux {
 		
 		}while(auxiliar);
 	}
+	
+	
 	public void jogada() {
 		do {
         	try {
@@ -155,6 +188,9 @@ public class IniciaJogo extends AtributosAux {
         	
         } while (auxiliar);
 	}
+	
+	
+	
 	public void botaoAjuda() {
 		do {
         	try {

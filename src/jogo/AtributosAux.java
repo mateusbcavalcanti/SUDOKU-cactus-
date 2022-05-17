@@ -10,12 +10,12 @@ public abstract class AtributosAux {
 	protected int coluna = 0;
 	protected int numJogado = 0;
 	protected char botao;
-	protected char dificuldade;
+	public static char dificuldade;
 	protected boolean auxiliar = false;
 	protected Board board = null;
 	protected Board boardFixo = null;
 	protected int celulasZeradas = 0;
 	protected int celula = 0;
-	
-	
+	protected long tempoRanking;
+	protected String nome;
 }

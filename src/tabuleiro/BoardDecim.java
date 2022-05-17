@@ -213,7 +213,7 @@ public class BoardDecim extends Board {
 	       	}
 	   	  }
 	   	}
-		  return removeCelulas(celulasZeradas);
+		  return this.tabuleiro;
 	}
 
 
