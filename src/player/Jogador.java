@@ -45,19 +45,19 @@ public class Jogador  {
 		nome = JOptionPane.showInputDialog("Insira seu nome:");
 
 		tempo = getTempo();
-		if (jogo.AtributosAux.dificuldade == 'd') {
+		if (jogo.Interface.dificuldade == 'd') {
 			dif = "Dificil";
 		}
-		if (jogo.AtributosAux.dificuldade == 'm') {
+		if (jogo.Interface.dificuldade == 'm') {
 			dif = "Medio";
 		}
-		if (jogo.AtributosAux.dificuldade == 'f') {
+		if (jogo.Interface.dificuldade == 'f') {
 			dif = "Facil";
 		}
 
 		try {
 			FileWriter fileW = new FileWriter("jogadores.txt", true);//se não existir arquivo txt, ele cria 
-			PrintWriter escritor = new PrintWriter(fileW); //printa o ranking no arquivo txt
+			PrintWriter escritor = new PrintWriter(fileW); //coloca as informações no arquivo txt
 			escritor.printf(nome + "\n" + tempo + "\n" + dif + "\n");
 
 			escritor.flush();
@@ -71,7 +71,7 @@ public class Jogador  {
 
 	}
 
-	public void printarRanking() {
+	public void printarRanking() { //puxa do arquivo txt e coloca na tela do usuario
 		Path caminho = Paths.get("jogadores.txt");
 		try {
 			byte[] texto = Files.readAllBytes(caminho);
@@ -97,7 +97,7 @@ public class Jogador  {
 
 		}
 
-		Collections.sort(ar, new ComparaTempo());
+		Collections.sort(ar, new ComparaTempo());//compara os tempos dos usuarios
 
 		if (ar.size() >= 10) { //controla o ranking para exibir apena 10 primeiros
 			for (int i = 0; i < 10; i++) {

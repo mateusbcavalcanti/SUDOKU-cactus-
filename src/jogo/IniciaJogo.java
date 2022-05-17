@@ -21,6 +21,8 @@ public class IniciaJogo extends AtributosAux {
 	
 	Jogador jogador = new Jogador();
 	
+	 protected char botao;
+	 protected char dificuldade;
 	 public static int tempoDecorrido = 0;
 	 public static int segundos =0;
 	 public static int minutos =0;
@@ -30,40 +32,43 @@ public class IniciaJogo extends AtributosAux {
 	 static String horas_string = String.format("%02d", horas);
 	 static String tempoRanking1;
 
-	public IniciaJogo() {
+	public IniciaJogo(char bt, char d) {
 		
-		
-		jogador.printarRanking();
+		botao = bt;
+		dificuldade = d;
+		//jogador.printarRanking();
 		setandoTabDif();
 		
 		long tempoInicial=System.currentTimeMillis();
+		
 		do {
 		
 	        auxiliar = true;
 	        System.out.println();
 	        board.exibeMatriz();
 		
-			//jogada();
+			jogada();
 	        
 	        
 	        auxiliar = true; //reuso
 	        
-	       //botaoAjuda();
+	        botaoAjuda();
 	        
-	        	auxiliar = true; //reuso
+	        auxiliar = true; //reuso
+	        
 	        int numeroQualquer = sc.nextInt();	//numero qualquerpara testar o ranking        
-	       if(board.jogoCompleto()) { 
+	       
+	        if(board.jogoCompleto()) { 
 	        	auxiliar = false;
 	        }
 	        
 			
 	    } while (auxiliar);
-		JOptionPane.showMessageDialog(null,"~~> VOCÊ GANHOU O SUDOKU CACTUS!! PARABÉNS!!! <~~");
+		
+		long tempoFinal=System.currentTimeMillis();//setando o tempo
+	    tempoRanking = (tempoFinal-tempoInicial);//subtraindo o tempo para pegar os segundos certinhos
+        JOptionPane.showMessageDialog(null,"~~> VOCÊ GANHOU O SUDOKU CACTUS!! PARABÉNS!!! <~~\n SEU TEMPO FOI : "+ temporizador() );
 	    
-	    long tempoFinal=System.currentTimeMillis();//setando o tempo
-	    tempoRanking = (tempoFinal-tempoInicial);
-	    System.out.println(temporarizador());
-        
         //System.out.println("Insira o seu nome");//setando nome
         //nome = sc.nextLine(); 
         
@@ -78,7 +83,7 @@ public class IniciaJogo extends AtributosAux {
 	//FUNCOES ABAIXO SÃO PARA CONTROLE DO INCIA JOGO
 	
 	
-	public String temporarizador() {
+	public String temporizador() { //Armazena o tempo de execução do jogo e coloca no estilo cronometro
 		
 		horas = (int) (tempoRanking/3600000);                                                                    
 	    minutos = (int) ((tempoRanking/60000) % 60);
@@ -93,22 +98,17 @@ public class IniciaJogo extends AtributosAux {
 	    
 	}
 	
-	public void setandoTabDif() {
-		do {
-			try {
-		auxiliar=true;
-		System.out.println("  Escolha o tipo de tabuleiro que deseja jogar:\n  TABULEIRO9X9<x>  TABULEIRO16x16 <y>");
-		botao = sc.next().charAt(0);
-		System.out.println("  Escolha o nivel de dificuldade do jogo:\n  FACIL<f>     MEDIO<m>     DIFICIL<d>");
-		dificuldade = sc.next().charAt(0);
+	public void setandoTabDif() { // Pega os dados da interface e fefine a dificuldade do tabuleiro e se eh 9x9 ou 16x16 e zera a quantidade de casas necessária 
 		
-		if(botao == 'x') {
+		auxiliar=true;
+		
+		if(botao == 'x') {//tabuleiro 9x9
 			
 			board = new BoardDecim(linha,coluna,tabuleiroDeci,celula);
 			boardFixo = new BoardDecim(linha, coluna, tabuleiroDeci,celula);
 
 			 if(dificuldade == 'f') {
-				 celulasZeradas = 0;
+				 celulasZeradas = 20;
 				 auxiliar=false;
 			 }
 			 
@@ -128,7 +128,7 @@ public class IniciaJogo extends AtributosAux {
 		}
 		
 		
-		else if(botao == 'y') {
+		else if(botao == 'y') {//tabuleiro16x16
 			
 			
 			board = new BoardHexa(linha, coluna, tabuleiroHexa,celula);
@@ -152,20 +152,10 @@ public class IniciaJogo extends AtributosAux {
 			 boardFixo.setTabuleiro(board.igualaMatriz(board.getTabuleiro(), boardFixo.getTabuleiro()));
 			 
 		}
-		if(auxiliar) {
-			throw new ConflitanteException ("\n~~DIGITE UMA ENTRADA VÁLIDA~~\n");
-		}
-			}
-			catch(ConflitanteException e) {
-				//System.out.println(e.getMessage());
-				JOptionPane.showMessageDialog(null,e.getMessage(),"Alerta!", 2);
-			}
 		
-		}while(auxiliar);
-	}
+}
 	
-	
-	public void jogada() {
+	public void jogada() { //Faz o jogo acontecer definindo as jogadas do usuario
 		do {
         	try {
         System.out.println("Insira a linha e a coluna e em seguida o numero da jogada");            
@@ -194,11 +184,11 @@ public class IniciaJogo extends AtributosAux {
      
     	    }
         	catch(ArrayIndexOutOfBoundsException e) {
-		//System.out.println("\n~~Digite apenas valores dentros dos limites de linha e coluna do tabuleiro~~\n");
+		
         		JOptionPane.showMessageDialog(null,"~~Digite apenas valores dentros dos limites de linha e coluna do tabuleiro~~","Alerta!", 2);
         	}
         	catch(InputMismatchException e) {
-    		//System.out.println("\n~~Digite apenas números referentes a linha coluna e valor jogado!!~~\n");
+    		
     		JOptionPane.showMessageDialog(null,"~~Digite apenas números referentes a linha coluna e valor jogado!!~~","Alerta!", 2);
     		sc.next();
         	}
@@ -208,7 +198,7 @@ public class IniciaJogo extends AtributosAux {
 	
 	
 	
-	public void botaoAjuda() {
+	public void botaoAjuda() {//mostra os numero disponiveis para cada celula
 		do {
         	try {
         System.out.println("\nDeseja saber quais numeros são validos para determinada celula? SIM<s> NAO<n>");
@@ -228,11 +218,12 @@ public class IniciaJogo extends AtributosAux {
 				}
 				
 				else {
+					limpartela();
 					board.botao(linha, coluna);
 					auxiliar = false;
 				}
         		 }catch(ArrayIndexOutOfBoundsException e) {
-      	    	//System.out.println("\n Digite apenas Valores dentro do tamanho do tabuleiro \n");
+      	    	
       	    	JOptionPane.showMessageDialog(null,e.getMessage(),"Alerta!", 2);
       	        	}
 				
@@ -242,7 +233,7 @@ public class IniciaJogo extends AtributosAux {
         
         	
        }else if(botao == 'n') {
-        	
+    	   limpartela();
     	   auxiliar=false;
         }
        if(auxiliar){
@@ -250,10 +241,15 @@ public class IniciaJogo extends AtributosAux {
     	   }
        
         	}catch(ConflitanteException e) {
-        		//System.out.println(e.getMessage());
+        		
         		JOptionPane.showMessageDialog(null,e.getMessage(),"Alerta!", 2);
         	}
         
         }while(auxiliar);
 	}
+	
+	public void limpartela(){// pula linhas para dar uma limpada no console
+		 for (int i = 0; i < 20; ++i)  
+		 System.out.println();  
+		}
 }

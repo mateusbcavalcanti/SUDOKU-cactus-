@@ -38,7 +38,7 @@ public class BoardHexa extends Board {
 	}
 
 	@Override
-	public void botao(int linha, int coluna) {
+	public void botao(int linha, int coluna) { //mostra quais os valores disponiveis para a celula
 		int[]elementos = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}; 
  	   
     	ArrayList<Integer> test = new ArrayList<Integer>();
@@ -77,7 +77,7 @@ public class BoardHexa extends Board {
    		
     	test.removeAll(testeQuadrante);
     	
-    	System.out.println("Esses soa os valores disponiveis para a celula:"+ test);
+    	System.out.println("Esses sao os valores disponiveis para a celula:"+ test);
 		
 	}
 
@@ -90,7 +90,7 @@ public class BoardHexa extends Board {
 	}
 
 	@Override
-	public boolean jogoCompleto() {
+	public boolean jogoCompleto() { //verifica se o tabuleiro está completo e correto
 		 ArrayList<Integer> principal = new ArrayList<>();
          ArrayList<Integer> coluna = new ArrayList<>();
          ArrayList<Integer> linha = new ArrayList<>();
@@ -139,7 +139,7 @@ public class BoardHexa extends Board {
 	
 
 	@Override
-	public int[][] removeCelulas(int celulasZeradas) {
+	public int[][] removeCelulas(int celulasZeradas) { // remove celulas, colocando-as para zero de acordo com a dificuldade
 		Random random = new Random();
 	 	
 		  int numRandom = 2;
@@ -162,7 +162,7 @@ public class BoardHexa extends Board {
 	}
 
 	@Override
-	public int[][] geradorTabuleiro( int celulasZeradas) {
+	public int[][] geradorTabuleiro( int celulasZeradas) { //gera o tabuleiro aleatorio do sudoku
 		  
 		  Random random = new Random();
 		  int matriz = 4;
@@ -189,15 +189,15 @@ public class BoardHexa extends Board {
 	public void conflitante(int linha, int coluna, int numJogado) throws ConflitanteException{
 		for (int i = 0; i < this.tabuleiro.length; i++) {
 			 if(this.tabuleiro[linha][i] == numJogado && i!= coluna ) { //verifica a linha e imprime as celulas conflitantes
-	   			 throw new ConflitanteException("Linha:"+ linha + " coluna:" + i + " ---- conflitam com a celula modificada"  );	
-				 //System.out.println("JA PERTENCE A LINHA");
+				 System.out.println("Linha:"+ linha + " coluna:" + i + " ---- conflitam com a celula modificada"  );	
+				 
 	   				}
 				}
 	           
 		for (int j = 0; j < this.tabuleiro.length; j++) {
 	        	   if(this.tabuleiro[j][coluna] == numJogado && j != linha) { //verifica a coluna e imprime as celulas conflitantes
-	        		   throw new ConflitanteException("Linha:"+ j + " coluna:" + coluna + " ---- conflitam com a celula modificada" );
-	        		   //System.out.println("JA PERTENCE A COLUNA");
+	        		   System.out.println("Linha:"+ j + " coluna:" + coluna + " ---- conflitam com a celula modificada" );
+	        		   
 	        	   	}
 	       		}
 	      		
@@ -207,8 +207,8 @@ public class BoardHexa extends Board {
 	       		for(int k= linhaQuadrante; k<linhaQuadrante + 4; k++) { //verifica o quadrante e imprime as celulas conflitantes
 	       			for(int l= colunaQuadrante; l<colunaQuadrante + 4; l++) {
 	       				if(this.tabuleiro[k][l] == numJogado && k!= linha && l!= coluna  ) {
-	       					throw new ConflitanteException("Linha: "+ k + " coluna: " + l + " ---- conflitam com a celula modificada");
-	       					//System.out.println("JA PERTENCE AO QUADRANTE");
+	       					System.out.println("Linha: "+ k + " coluna: " + l + " ---- conflitam com a celula modificada");
+	       					
 	       				}
 	       			}		
 	       		}     
@@ -218,7 +218,7 @@ public class BoardHexa extends Board {
 
 
 	@Override
-	public int[][] igualaMatriz(int tabuleiro[][],int[][] posicoes) {
+	public int[][] igualaMatriz(int tabuleiro[][],int[][] posicoes) { //iguala as matrizes para armazenar a matriz original ser a matriz posicoes fixas
 		for(int i=0; i<tabuleiro.length; i++) {
 			 for(int j = 0; j <tabuleiro.length; j++) {
 				  posicoes[i][j]=tabuleiro[i][j];
