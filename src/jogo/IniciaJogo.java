@@ -20,7 +20,7 @@ public class IniciaJogo extends AtributosAux {
 	Scanner sc = new Scanner(System.in);
 	
 	Jogador jogador = new Jogador();
-	
+	private boolean smaluco;
 	 protected char botao;
 	 protected char dificuldade;
 	 public static int tempoDecorrido = 0;
@@ -32,11 +32,11 @@ public class IniciaJogo extends AtributosAux {
 	 static String horas_string = String.format("%02d", horas);
 	 static String tempoRanking1;
 
-	public IniciaJogo(char bt, char d) {
+	public IniciaJogo(char bt, char d, boolean maluco) {
 		
 		botao = bt;
 		dificuldade = d;
-		//jogador.printarRanking();
+		smaluco = maluco;
 		setandoTabDif();
 		
 		long tempoInicial=System.currentTimeMillis();
@@ -56,7 +56,6 @@ public class IniciaJogo extends AtributosAux {
 	        
 	        auxiliar = true; //reuso
 	        
-	        int numeroQualquer = sc.nextInt();	//numero qualquerpara testar o ranking        
 	       
 	        if(board.jogoCompleto()) { 
 	        	auxiliar = false;
@@ -67,11 +66,8 @@ public class IniciaJogo extends AtributosAux {
 		
 		long tempoFinal=System.currentTimeMillis();//setando o tempo
 	    tempoRanking = (tempoFinal-tempoInicial);//subtraindo o tempo para pegar os segundos certinhos
-        JOptionPane.showMessageDialog(null,"~~> VOCÊ GANHOU O SUDOKU CACTUS!! PARABÉNS!!! <~~\n SEU TEMPO FOI : "+ temporizador() );
-	    
-        //System.out.println("Insira o seu nome");//setando nome
-        //nome = sc.nextLine(); 
-        
+        JOptionPane.showMessageDialog(null,"~~> VOCE GANHOU O SUDOKU CACTUS!! PARABENS!!! <~~\n SEU TEMPO FOI : "+ temporizador() );
+
         jogador.gravarRanking();
        
         jogador.printarRanking();
@@ -80,10 +76,10 @@ public class IniciaJogo extends AtributosAux {
 		sc.close();
 	}
 	
-	//FUNCOES ABAIXO SÃO PARA CONTROLE DO INCIA JOGO
+	//FUNCOES ABAIXO SAO PARA CONTROLE DO INCIA JOGO
 	
 	
-	public String temporizador() { //Armazena o tempo de execução do jogo e coloca no estilo cronometro
+	public String temporizador() { //Armazena o tempo de execuï¿½ï¿½o do jogo e coloca no estilo cronometro
 		
 		horas = (int) (tempoRanking/3600000);                                                                    
 	    minutos = (int) ((tempoRanking/60000) % 60);
@@ -98,7 +94,7 @@ public class IniciaJogo extends AtributosAux {
 	    
 	}
 	
-	public void setandoTabDif() { // Pega os dados da interface e fefine a dificuldade do tabuleiro e se eh 9x9 ou 16x16 e zera a quantidade de casas necessária 
+	public void setandoTabDif() { // Pega os dados da interface e fefine a dificuldade do tabuleiro e se eh 9x9 ou 16x16 e zera a quantidade de casas necessï¿½ria 
 		
 		auxiliar=true;
 		
@@ -163,13 +159,14 @@ public class IniciaJogo extends AtributosAux {
         
             System.out.print("Linha > ");
             linha = sc.nextInt();
-        
+				
             System.out.print("Coluna > ");
             coluna = sc.nextInt();
         
-            System.out.print("Número > ");
+            System.out.print("Numero > ");
             numJogado = sc.nextInt();
         	   
+
             if(board.posicoesFixas(boardFixo.getTabuleiro(), linha, coluna))  {
 				
             	board.setCelula(linha,coluna,numJogado);
@@ -189,7 +186,7 @@ public class IniciaJogo extends AtributosAux {
         	}
         	catch(InputMismatchException e) {
     		
-    		JOptionPane.showMessageDialog(null,"~~Digite apenas números referentes a linha coluna e valor jogado!!~~","Alerta!", 2);
+    		JOptionPane.showMessageDialog(null,"~~Digite apenas numeros referentes a linha coluna e valor jogado!!~~","Alerta!", 2);
     		sc.next();
         	}
         	
@@ -201,7 +198,7 @@ public class IniciaJogo extends AtributosAux {
 	public void botaoAjuda() {//mostra os numero disponiveis para cada celula
 		do {
         	try {
-        System.out.println("\nDeseja saber quais numeros são validos para determinada celula? SIM<s> NAO<n>");
+        System.out.println("\nDeseja saber quais numeros sao validos para determinada celula? SIM<s> NAO<n>");
         botao = sc.next().charAt(0);
    	
        if(botao == 's') {
@@ -237,7 +234,7 @@ public class IniciaJogo extends AtributosAux {
     	   auxiliar=false;
         }
        if(auxiliar){
-    	   throw new ConflitanteException("\n~~Digite apenas números referentes a linha coluna e valor jogado!!~~\n");
+    	   throw new ConflitanteException("\n~~Digite apenas numeros referentes a linha coluna e valor jogado!!~~\n");
     	   }
        
         	}catch(ConflitanteException e) {

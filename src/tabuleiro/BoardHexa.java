@@ -3,6 +3,10 @@ package tabuleiro;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
+import jogo.IniciaJogo;
+import jogo.Interface;
 import model.exceptions.ConflitanteException;
 
 public class BoardHexa extends Board {
@@ -190,14 +194,20 @@ public class BoardHexa extends Board {
 		for (int i = 0; i < this.tabuleiro.length; i++) {
 			 if(this.tabuleiro[linha][i] == numJogado && i!= coluna ) { //verifica a linha e imprime as celulas conflitantes
 				 System.out.println("Linha:"+ linha + " coluna:" + i + " ---- conflitam com a celula modificada"  );	
-				 
+				 if(Interface.smaluco == true){
+					 JOptionPane.showMessageDialog(null,"~~> VOCE ERROU E O MALUCO RODOU!!! :) <~~","MALUCOOOOOO",2);
+						IniciaJogo novoJogo = new IniciaJogo(Interface.bt, Interface.dificuldade, Interface.smaluco);
+					} 
 	   				}
 				}
 	           
 		for (int j = 0; j < this.tabuleiro.length; j++) {
 	        	   if(this.tabuleiro[j][coluna] == numJogado && j != linha) { //verifica a coluna e imprime as celulas conflitantes
 	        		   System.out.println("Linha:"+ j + " coluna:" + coluna + " ---- conflitam com a celula modificada" );
-	        		   
+	        		   if(Interface.smaluco == true){
+	        			   JOptionPane.showMessageDialog(null,"~~> VOCE ERROU E O MALUCO RODOU!!! :) <~~","MALUCOOOOOO",2);
+	   					IniciaJogo novoJogo = new IniciaJogo(Interface.bt, Interface.dificuldade, Interface.smaluco);
+	   				} 
 	        	   	}
 	       		}
 	      		
@@ -208,7 +218,10 @@ public class BoardHexa extends Board {
 	       			for(int l= colunaQuadrante; l<colunaQuadrante + 4; l++) {
 	       				if(this.tabuleiro[k][l] == numJogado && k!= linha && l!= coluna  ) {
 	       					System.out.println("Linha: "+ k + " coluna: " + l + " ---- conflitam com a celula modificada");
-	       					
+	       					if(Interface.smaluco == true){
+	       						JOptionPane.showMessageDialog(null,"~~> VOCE ERROU E O MALUCO RODOU!!! :) <~~","MALUCOOOOOO",2);
+	       						IniciaJogo novoJogo = new IniciaJogo(Interface.bt, Interface.dificuldade, Interface.smaluco);
+	       					} 
 	       				}
 	       			}		
 	       		}     
@@ -232,6 +245,8 @@ public class BoardHexa extends Board {
 	
 }
 
+ 
+ 
  
  
 	

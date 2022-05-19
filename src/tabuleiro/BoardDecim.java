@@ -3,6 +3,11 @@ package tabuleiro;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
+import jogo.IniciaJogo;
+import jogo.Interface;
+import jogo.Interface.*;
 import model.exceptions.ConflitanteException;
 
 public class BoardDecim extends Board {
@@ -77,12 +82,12 @@ public class BoardDecim extends Board {
 	@Override
 	public boolean posicoesFixas(int[][] posicoes, int linha, int coluna) {
 		//Pega o tabuleiro incial e armazena as posicoes para comparar com o tabuleiro
-		//gerado pelas modificações do usuario a fim de saber se aquela celula é a fixa ou nao
+		//gerado pelas modificaï¿½ï¿½es do usuario a fim de saber se aquela celula ï¿½ a fixa ou nao
 		return this.tabuleiro[linha][coluna] != posicoes[linha][coluna] || this.tabuleiro[linha][coluna] == 0;
 	}
 
 	@Override
-	public boolean jogoCompleto() { //verifica se o tabuleiro está completo e correto
+	public boolean jogoCompleto() { //verifica se o tabuleiro estï¿½ completo e correto
 		 ArrayList<Integer> principal = new ArrayList<>();
          ArrayList<Integer> coluna = new ArrayList<>();
          ArrayList<Integer> linha = new ArrayList<>();
@@ -137,7 +142,11 @@ public class BoardDecim extends Board {
 		for (int i = 0; i < this.tabuleiro.length; i++) {
 	           if(this.tabuleiro[linha][i] == numJogado && i!= coluna) { //verifica a linha e imprime as celulas conflitantes
 	        	   System.out.println("Linha:"+ linha + " coluna:" + i + " ---- conflitam com a celula modificada"  );
-	   			
+	        	   if(Interface.smaluco == true){
+	        		   JOptionPane.showMessageDialog(null,"~~> VOCE ERROU E O MALUCO RODOU!!! :) <~~","MALUCOOOOOO",2);
+						IniciaJogo novoJogo = new IniciaJogo(Interface.bt, Interface.dificuldade, Interface.smaluco);
+					} 
+
 	   				}
 	          
 				}
@@ -145,8 +154,11 @@ public class BoardDecim extends Board {
 		for (int j = 0; j < this.tabuleiro.length; j++) {
 	        	 if(this.tabuleiro[j][coluna] == numJogado && j != linha) { //verifica a coluna e imprime as celulas conflitantes
 	        		 System.out.println("Linha:"+ j + " coluna:" + coluna + " ---- conflitam com a celula modificada" );
+	        		 if(Interface.smaluco == true){
+	        			 JOptionPane.showMessageDialog(null,"~~> VOCE ERROU E O MALUCO RODOU!!! :) <~~","MALUCOOOOOO",2);
+	 					IniciaJogo novoJogo = new IniciaJogo(Interface.bt, Interface.dificuldade, Interface.smaluco);
+	 				} 
 	   				}
-	        	
 	        	}
 	         
 	       					 
@@ -156,11 +168,16 @@ public class BoardDecim extends Board {
 	       		for(int k= linhaQuadrante; k<linhaQuadrante + 3; k++) { //verifica o quadrante e imprime as celulas conflitantes
 	       			for(int l= colunaQuadrante; l<colunaQuadrante + 3; l++) {
 	       				if(this.tabuleiro[k][l] == numJogado && k!= linha && l!= coluna ) {
-	       					System.out.println("Linha: "+ k + " coluna: " + l + " ---- conflitam com a celula modificada");     				
+	       					System.out.println("Linha: "+ k + " coluna: " + l + " ---- conflitam com a celula modificada");  
+							if(Interface.smaluco == true){
+						JOptionPane.showMessageDialog(null,"~~> VOCE ERROU E O MALUCO RODOU!!! :) <~~","MALUCOOOOOO",2);
+					IniciaJogo novoJogo = new IniciaJogo(Interface.bt, Interface.dificuldade, Interface.smaluco);
+				}    		
 	       				}
 	       			 
 	       			}
 	       		}
+				   
 			}
 
 
@@ -195,8 +212,8 @@ public class BoardDecim extends Board {
 	public int[][] geradorTabuleiro(int celulasZeradas) { //gera o tabuleiro aleatorio do sudoku
 		  Random random = new Random();
 		  int matriz = 3;
-		  this.tabuleiro = new int[matriz * matriz][matriz * matriz];//matriz onde será armazenado o sudoku
-		  int x = random.nextInt(100);//semente aleatória para não gerar o mesmo sudoku
+		  this.tabuleiro = new int[matriz * matriz][matriz * matriz];//matriz onde serï¿½ armazenado o sudoku
+		  int x = random.nextInt(100);//semente aleatï¿½ria para nï¿½o gerar o mesmo sudoku
 		  for (int number = 0; number < 1; number++){
 			  
 		  
@@ -228,6 +245,5 @@ public class BoardDecim extends Board {
 
 }
 
-	
 	
 	

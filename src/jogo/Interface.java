@@ -6,7 +6,9 @@ import java.awt.*;
 public class Interface extends JFrame {
     
     public static char dificuldade; 
-    private char bt;
+    public static char bt;
+    public static boolean smaluco;
+
     JFrame frame = new JFrame();
     JPanel panel = new JPanel();
     JLabel label = new JLabel();
@@ -15,6 +17,7 @@ public class Interface extends JFrame {
     JButton facil;
     JButton medio;
     JButton dificil;
+    JButton maluco;
 
     public void configs(){ //parte da interface que define o tipo de tabuleiro
         
@@ -55,12 +58,26 @@ public class Interface extends JFrame {
     });
        dezesseis.setIcon(new ImageIcon(getClass().getResource("imagens/16x16.jpg")));
 
+       maluco = new JButton("");
+       maluco.setBounds(245,612,109,45);
+       panel.add(maluco);
+       maluco.addActionListener((java.awt.event.ActionEvent evt) -> {
+        if (smaluco == true) {
+            smaluco = false;
+            System.out.println("Maluco: Falso");
+        } else {
+            smaluco = true;
+            System.out.println("Maluco: Verdadeiro");
+        }
+    });
+       maluco.setIcon(new ImageIcon(getClass().getResource("imagens/maluco.jpg")));
     }
 
     public void dificuldade(){ //de acordo com a dificuldade escolhida no painel, joga o tabuleiro no console com as celulas zeradas
        label.setIcon(new ImageIcon(getClass().getResource("imagens/dificuldade.jpg")));
        nove.setVisible(false);
        dezesseis.setVisible(false);
+       maluco.setVisible(false);
 
        facil = new JButton("");
        facil.setBounds(70,535,109,45);
@@ -69,7 +86,7 @@ public class Interface extends JFrame {
         System.out.println("Facil");
         dificuldade = 'f';
         frame.dispose();
-        IniciaJogo jogo = new IniciaJogo(bt, dificuldade);
+        IniciaJogo jogo = new IniciaJogo(bt, dificuldade, smaluco);
     });
        facil.setIcon(new ImageIcon(getClass().getResource("imagens/facil.jpg")));
 
@@ -80,7 +97,7 @@ public class Interface extends JFrame {
         System.out.println("Medio");
         dificuldade = 'm';
         frame.dispose();
-        IniciaJogo jogo = new IniciaJogo(bt, dificuldade);
+        IniciaJogo jogo = new IniciaJogo(bt, dificuldade,smaluco);
     });
        medio.setIcon(new ImageIcon(getClass().getResource("imagens/medio.jpg")));
 
@@ -91,10 +108,11 @@ public class Interface extends JFrame {
         System.out.println("Dificil");
         dificuldade = 'd';
         frame.dispose();
-        IniciaJogo jogo = new IniciaJogo(bt, dificuldade);
+        IniciaJogo jogo = new IniciaJogo(bt, dificuldade, smaluco);
     });
        dificil.setIcon(new ImageIcon(getClass().getResource("imagens/dificil.jpg")));
 
        
     }
 }
+
